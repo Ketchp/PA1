@@ -1,3 +1,4 @@
+all: main test
 main: main.c
 	gcc -Wall -pedantic -Werror main.c -o main
 
