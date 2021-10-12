@@ -4,5 +4,6 @@ TESTS=CZE
 for NUM in {0000..0006}
 do
     ./main <${TESTS}/${NUM}_in.txt >${TESTS}/${NUM}_out.st.txt
+    echo ${TESTS}/${NUM}_out.txt
     diff ${TESTS}/${NUM}_out.txt ${TESTS}/${NUM}_out.st.txt ${FLAGS}
 done
