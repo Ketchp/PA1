@@ -1,19 +1,25 @@
 #include <stdio.h>
+#include <math.h>
 
 int charInStr(char character, char* str);
 
 int main(){
-    printf("Enter an equation:\n");
-    double a,b,c,expected;
+    printf("Zadejte rovnici:\n");
+    long double a,b,c,expected=0;
     char operand, equal;
-    int ret = scanf(" %lf %c %lf %c %lf", &a, &operand, &b, &equal, &c);
-    if(ret != 5 || equal != '=' || !charInStr(operand, "+-*/") || (operand == '/' && b==0)){
-        printf("Invalid input.\n");
+    int ret = scanf(" %LF %c %LF %c %LF", &a, &operand, &b, &equal, &c);
+    if(ret != 5 || equal != '=' || !charInStr(operand, (char *)"+-*/") || (operand == '/' && b==0)){
+        printf("Nespravny vstup.\n");
+        return 0;
+    }
+    if(a == NAN || b == NAN || c == NAN || a == INFINITY || b == INFINITY || c == INFINITY ||
+    a == -INFINITY || b == -INFINITY || c == -INFINITY){
+        printf("Nespravny vstup.\n");
         return 0;
     }
     while(scanf("%c", &equal) == 1){
-        if(!charInStr(equal, " \t\r\n")){
-            printf("Invalid input.\n");
+        if(!charInStr(equal, (char *)" \t\r\n")){
+            printf("Nespravny vstup.\n");
             return 0;
         }
     }
@@ -28,12 +34,16 @@ int main(){
         expected = a*b;
         break;
     case '/':
-        expected = (int)(a/b);
+        expected = (long long)(a/b);
         break;
     
     }
-    if(expected == c) printf("The equation holds.\n");
-    else printf("%g != %g\n", expected, c);
+    if(expected == INFINITY || expected == NAN){
+         printf("Nespravny vstup.\n");
+        return 0;       
+    }
+    if(abs(expected - c) < (long double)1/100000000000) printf("Rovnice je spravne.\n");
+    else printf("%Lg != %Lg\n", expected, c);
     return 0;
 }
 
