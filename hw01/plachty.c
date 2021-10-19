@@ -3,7 +3,7 @@
 #include <math.h>
 #include <float.h>
 
-double precision = DBL_EPSILON * 1;
+double precision = 1;
 
 int validate(double num);
 long long calculate(double width, double height, double x, double y, double overlap);
@@ -73,6 +73,6 @@ long long calculate(double width, double height, double x, double y, double over
 }
 
 long long apprCeil(double num){
-    if(num - (long long)num > DBL_EPSILON*10) return (long long)num + 1;
+    if(num - (long long)num > DBL_EPSILON*precision) return (long long)num + 1;
     return num;
 }
