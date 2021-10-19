@@ -3,7 +3,7 @@
 #include <math.h>
 #include <float.h>
 
-double precision = 100;
+double precision = 10000;
 
 int validate(double num);
 long long calculate(double width, double height, double x, double y, double overlap);
