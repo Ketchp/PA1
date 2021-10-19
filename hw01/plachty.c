@@ -6,8 +6,8 @@
 double precision = DBL_EPSILON * 1;
 
 int validate(double num);
-int calculate(double width, double height, double x, double y, double overlap);
-int apprCeil(double num);
+long long calculate(double width, double height, double x, double y, double overlap);
+long long apprCeil(double num);
 
 
 int main(){
@@ -39,7 +39,7 @@ int main(){
         return 0;
     }
 
-    int plain, rotated;
+    long long plain, rotated;
     plain = calculate(width, height, x, y, overlap);
     rotated = calculate(width, height, y, x, overlap);
     if(plain == 0 && rotated == 0){
@@ -57,14 +57,14 @@ int validate(double num){
     return num <= 0 || num == INFINITY || num == -INFINITY || num == NAN;
 }
 
-int calculate(double width, double height, double x, double y, double overlap){
+long long calculate(double width, double height, double x, double y, double overlap){
 //    printf("%lg %lg %lg %lg %lg = ", width, height, x, y, overlap);
     width -= x;
     height -= y;
     x -= overlap;
     y -= overlap;
     if((width > 0 && x <= 0) || (height > 0 && y <= 0)) return 0;
-    int xn = 1, yn = 1;
+    long long xn = 1, yn = 1;
     if(width > 0) xn += apprCeil(width / x);
     if(height > 0) yn += apprCeil(height / y);
 //    printf(".%lf %lf.", width / x, height / y);
@@ -72,7 +72,7 @@ int calculate(double width, double height, double x, double y, double overlap){
     return xn * yn;
 }
 
-int apprCeil(double num){
-    if(num - (int)num > DBL_EPSILON*10) return (int)num + 1;
-    return (int)num;
+long long apprCeil(double num){
+    if(num - (long long)num > DBL_EPSILON*10) return (long long)num + 1;
+    return num;
 }
