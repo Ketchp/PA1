@@ -1,6 +1,9 @@
 #!/bin/bash
+FLAGS="-y"
+
 for NUM in {0000..0010}
 do
     ./plachty <CZE/${NUM}_in.txt >CZE/${NUM}_out.st.txt
-    diff CZE/${NUM}_out.txt CZE/${NUM}_out.st.txt
+    echo CZE/${NUM}_out.txt
+    diff CZE/${NUM}_out.txt CZE/${NUM}_out.st.txt $FLAGS
 done
