@@ -1,5 +1,5 @@
 #!/bin/bash
-FLAGS="-y --suppress-common-lines"
+FLAGS="-y" # --suppress-common-lines"
 TESTS=CZE
 for NUM in {0000..0003}
 do
