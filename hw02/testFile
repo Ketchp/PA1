@@ -1,13 +1,13 @@
 #!/bin/bash
-FLAGS="-y --suppress-common-lines"
+FLAGS="-y --suppress-common-lines --text"
 
 for SAMPLE in {basic,big,radix}/CZE
 do
     for NUM in {0000..0019}
     do
         if test -f "$SAMPLE/${NUM}_in.txt"; then
-            ./ciselnaRada <$SAMPLE/${NUM}_in.txt >$SAMPLE/${NUM}_out.st.txt
             echo $SAMPLE/${NUM}_out.txt
+            ./ciselnaRada <$SAMPLE/${NUM}_in.txt >$SAMPLE/${NUM}_out.st.txt
             diff $SAMPLE/${NUM}_out.txt $SAMPLE/${NUM}_out.st.txt $FLAGS
         fi
     done
