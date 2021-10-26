@@ -4,3 +4,6 @@ sachovnice: sachovnice.c
 
 test: sachovnice CZE testFile
 	./testFile
+
+cezar: cezar.c
+	g++ -std=c++14 -Wall -pedantic -Wno-long-long -O2 cezar.c -o cezar
