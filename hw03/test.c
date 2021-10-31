@@ -178,7 +178,7 @@ long long dateConsumption(int year1, int month1, int day1, int year2, int month2
 long long daysCount(int year, int month, int day)
 {
   static int monthPrefix[] = {0,   0,  31,  59,  90, 120, 151, 181, 212, 243, 273, 304, 334};
-  return year*365 + leapYearsTo(year) + monthPrefix[month] + day + (month > 2)*isLeapYear(year);
+  return year*365ll + leapYearsTo(year) + monthPrefix[month] + day + (month > 2)*isLeapYear(year);
 }
 
 long long timeConsumption(int hour1, int minute1, int hour2, int minute2)
