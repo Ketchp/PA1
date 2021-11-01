@@ -23,6 +23,7 @@ int main()
         if(scanf("\n%c %lld", &str, &vote) != 2 || str < 'A' || str >= 'A' + n || votes[(int)(str-'A')] || vote <= 0)
         {
             printf("Nespravny vstup.\n");
+            free(votes);
             return 0;
         }
         votes[(int)(str-'A')] = vote;
@@ -33,6 +34,7 @@ int main()
         if( !votes[i] )
         {
             printf("Nespravny vstup.\n");
+            free(votes);
             return 0;
         }
     }
@@ -42,6 +44,7 @@ int main()
     if(scanf("%lld", &M) != 1 || M < 0)
     {
         printf("Nespravny vstup.\n");
+        free(votes);
         return 0;
     }
 
@@ -73,6 +76,8 @@ int main()
         if( maxCnt > ( M - assigned ) )
         {
             printf("Nelze rozdelit.\n");
+            free(votes);
+            free(miners);
             return 0;
         }
         miners[maxIndex]++;
@@ -85,7 +90,8 @@ int main()
         printf("%c: %lld\n", 'A' + (char)i, miners[i]);
     }
 
-
+    free(votes);
+    free(miners);
     return 0;
 }
 
