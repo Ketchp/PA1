@@ -41,7 +41,7 @@ int main()
 
     long long M, assigned = 0;
     printf("Pocet horniku:\n");
-    if(scanf("%lld", &M) != 1 || M < 0)
+    if(scanf("%lld", &M) != 1 || M <= 0)
     {
         printf("Nespravny vstup.\n");
         free(votes);
