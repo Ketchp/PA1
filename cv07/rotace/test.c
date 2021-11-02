@@ -4,18 +4,75 @@
 #include <assert.h>
 #endif /* __PROGTEST__ */
 
+int gcd(int a, int b)
+{
+  int temp;
+  if(a < b)
+  {
+    temp = b;
+    b = a;
+    a = temp;
+  }
+
+  while(b != 0)
+  {
+    temp = a % b;
+    a = b;
+    b = temp;
+  }
+
+  return a;
+}
+
 void rotateArray ( int array [], int arrayLen, int rotateBy )
 {
   /* TODO: Your code here */
+  rotateBy = ( ( rotateBy % arrayLen ) + arrayLen ) % arrayLen;
+  int rotations = gcd( arrayLen, rotateBy ), temp, carry;
+  for(int start = 0; start < rotations; start++)
+  {
+    int curr = start;
+    carry = array[curr];
+    do{
+      curr = ( curr + rotateBy ) % arrayLen;
+      temp = array[curr];
+      array[curr] = carry;
+      carry = temp;
+
+    }while( curr != start );
+  }
 }
 
 #ifndef __PROGTEST__
 int identicalArrays ( const int a[], const int b[], int cnt )
 {
   /* TODO: Your code here */
+  for(int i = 0; i < cnt; i++)
+  {
+    if( a[i] != b[i] )
+    {
+      for(i = 0; i < cnt; i++)
+      {
+        printf("%2d ", a[i]);
+      }
+      printf("\n");
+      for(i = 0; i < cnt; i++)
+      {
+        printf("%2d ", b[i]);
+      }
+      printf("\n");
+      return 0;
+    }
+  }
+  return 1;
 }
 int main (int argc, char * argv [])
 {
+  assert( 15 == gcd( 15 * 3, 15 * 4 ) );
+  assert(  6 == gcd( 36, 42 ) );
+  assert( 15 == gcd( 15 * 7, 15 * 13 ) );
+  assert( 15 == gcd( 15 * 143, 15 * 144 ) );
+
   int in0 []  = { 1, 2, 3, 4, 5 };
   int out0 [] = { 5, 1, 2, 3, 4 };
 
