@@ -3,7 +3,7 @@ FLAGS="-y"
 
 for NUM in {0000..0002}
 do
-    ./main <CZE/${NUM}_in.txt >CZE/${NUM}_out.st.txt
     echo CZE/${NUM}_out.txt
+    ./main <CZE/${NUM}_in.txt >CZE/${NUM}_out.st.txt
     diff CZE/${NUM}_out.txt CZE/${NUM}_out.st.txt $FLAGS
 done
