@@ -4,6 +4,6 @@ FLAGS="-y"
 for NUM in {0000..0002}
 do
     echo CZE/${NUM}_out.txt
-    ./main <CZE/${NUM}_in.txt >CZE/${NUM}_out.st.txt
-    diff CZE/${NUM}_out.txt CZE/${NUM}_out.st.txt $FLAGS
+    ./sqrt_alg <CZE/${NUM}_in.txt >CZE/${NUM}_out.sq.txt
+    diff CZE/${NUM}_out.txt CZE/${NUM}_out.sq.txt $FLAGS
 done
