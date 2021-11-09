@@ -1,7 +1,7 @@
 #!/bin/bash
 FLAGS="-y"
 
-for NUM in {0000..0002}
+for NUM in {{0000..0002},{0004..0005}}
 do
     echo CZE/${NUM}_out.txt
     ./best <CZE/${NUM}_in.txt >CZE/${NUM}_out.sq.txt
