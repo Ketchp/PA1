@@ -4,38 +4,45 @@
 #include <assert.h>
 
 #define MAX_ID 100000l
-#define MAX_QUERY 100 //1000000
-#define BUCKET_SIZE 3  //1000
+#define MAX_QUERY 1000000
+#define BUCKET_SIZE 1000
 #define BUCKET_COUNT (MAX_QUERY/BUCKET_SIZE)
 
 int add( int id, int *list, int *changes, int count );
 int query( int from, int to, int *list, int *bucket_diff, int *changes );
 
-void printl(int *visit_count, int *bucket_diff)
+void printl(int *visit_count, int *bucket_diff, int *change_list)
 {
-    for(int buc = 0; buc < (BUCKET_COUNT < 6 ? BUCKET_COUNT : 6); buc++)
+    for(int buc = 0; buc < (BUCKET_COUNT < 15 ? BUCKET_COUNT : 15); buc++)
     {
-        for(int i = 0; i < 26; i++)
+        for(int i = 0; i < 11; i++)
         {
             printf("%d ", visit_count[i + buc * MAX_ID]);
         }
         printf("\n");
     }
-    for(int start = 0; start < (BUCKET_COUNT + 1); start++)
+    for(int start = 0; start < ( (BUCKET_COUNT + 1) < 15 ? (BUCKET_COUNT + 1) : 15 ); start++)
     {
-        for(int end = 0; end < (BUCKET_COUNT + 1); end++)
+        for(int end = 0; end < ( (BUCKET_COUNT + 1) < 15 ? (BUCKET_COUNT + 1) : 15 ); end++)
         {
             printf("%d ", bucket_diff[start * (BUCKET_COUNT + 1) + end]);
         }
         printf("\n");
     }
+    for(int i = 0; i < MAX_QUERY; i++)
+    {
+        printf("%2d ", change_list[i]);
+        if(i%10 == 4) printf("|");
+        if(i%10 == 9) printf("\n");
+    }
 }
 
 int main()
 {
+//    printf("%d\n", BUCKET_COUNT);
     int *visit_count = (int *)malloc( MAX_ID * ( BUCKET_COUNT + 1 ) * sizeof(*visit_count) );
     assert( visit_count != NULL );
-    int *bucket_diff = (int *)calloc( ( BUCKET_COUNT + 1) * ( BUCKET_COUNT + 1 ), sizeof(*bucket_diff) );
+    int *bucket_diff = (int *)calloc( ( BUCKET_COUNT + 2 ) * ( BUCKET_COUNT + 2 ), sizeof(int) );
     int change_list[ MAX_QUERY ];
     printf( "Pozadavky:\n" );
     char operation, space, cariage_return;
@@ -49,8 +56,9 @@ int main()
                 new_id < 0 || new_id >= MAX_ID || count == MAX_QUERY )
             {
                 printf( "Nespravny vstup.\n" );
-                printl(visit_count, bucket_diff);
+//                printl(visit_count, bucket_diff, change_list);
                 free(visit_count);
+                free(bucket_diff);
                 return 0;
             }
 
@@ -67,8 +75,9 @@ int main()
                 from < 0 || to >= count || to < from )
             {
                 printf( "Nespravny vstup.\n" );
-                printl(visit_count, bucket_diff);
+//                printl(visit_count, bucket_diff, change_list);
                 free(visit_count);
+                free(bucket_diff);
                 return 0;
             }
             to++;
@@ -78,13 +87,15 @@ int main()
 
         default:
             printf( "Nespravny vstup.\n" );
-            printl(visit_count, bucket_diff);
+//            printl(visit_count, bucket_diff, change_list);
             free(visit_count);
+            free(bucket_diff);
             return 0;
         }
     }
-    printl(visit_count, bucket_diff);
+//    printl(visit_count, bucket_diff, change_list);
     free(visit_count);
+    free(bucket_diff);
     return 0;
 }
 
@@ -130,24 +141,27 @@ int query(int from, int to, int *list, int *bucket_diff, int *changes)
     printf("%d -> %d\n", bucket_start * (BUCKET_SIZE + 1) + bucket_end,
             bucket_diff[ bucket_start * (BUCKET_SIZE + 1) + bucket_end ]);
 */
-    if( ! bucket_diff[ bucket_start * (BUCKET_SIZE + 1) + bucket_end ] )
+    if( ! bucket_diff[ bucket_start * (BUCKET_COUNT + 1) + bucket_end ] )
     {
-        printf("Bucket prework %d - %d - >", bucket_start, bucket_end);
+//        printf("Bucket prework %d - %d - >", bucket_start, bucket_end);
         for(int i = 0; i < MAX_ID; i++)
         {
             int change = list[bucket_end * MAX_ID + i] - list[bucket_start * MAX_ID + i];
-            if( change ) bucket_diff[ bucket_start * (BUCKET_SIZE + 1) + bucket_end ]++;
+            if( change ) bucket_diff[ bucket_start * (BUCKET_COUNT + 1) + bucket_end ]++;
         }
-        printf(" %d\n", bucket_diff[ bucket_start * (BUCKET_SIZE + 1) + bucket_end ]);
+//        printf(" %d\n", bucket_diff[ bucket_start * (BUCKET_COUNT + 1) + bucket_end ]);
     }
-    id_count = bucket_diff[ bucket_start * (BUCKET_SIZE + 1) + bucket_end ];
+    id_count = bucket_diff[ bucket_start * (BUCKET_COUNT + 1) + bucket_end ];
+//    printf("%d -> %d | %d -> %d | %d\n", from, to, bucket_start, bucket_end, id_count);
     for(int i = from; i < ( bucket_start + 1 ) * BUCKET_SIZE; i++)
     {
         int id = changes[i];
         int change = list[bucket_end * MAX_ID + id] - list[bucket_start * MAX_ID + id];
+//        printf("%d:%d -> %d\n", i, id, change);
         if( change ) continue;
         if(!used[id])
         {
+//            printf("Add\n");
             used[id] = 1;
             id_count++;
         }
@@ -157,9 +171,11 @@ int query(int from, int to, int *list, int *bucket_diff, int *changes)
     {
         int id = changes[i];
         int change = list[bucket_end * MAX_ID + id] - list[bucket_start * MAX_ID + id];
+//        printf("%d:%d -> %d\n", i, id, change);
         if( change ) continue;
         if(!used[id])
         {
+//            printf("Add\n");
             used[id] = 1;
             id_count++;
         }
@@ -176,7 +192,6 @@ int query(int from, int to, int *list, int *bucket_diff, int *changes)
         int id = changes[i];
         used[id] = 0;
     }
-    printf("%d -> %d | %d -> %d\n", from, to, bucket_start, bucket_end);
 
     return id_count;
 }
