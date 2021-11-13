@@ -8,5 +8,5 @@ for file in {0000..0002}
 do
     ./main <CZE/${file}_in.txt >CZE/${file}_out.st.txt
     echo $file
-    diff CZE/${file}_out.st.txt CZE/${file}_out.txt $flags
+    diff CZE/${file}_out.txt CZE/${file}_out.st.txt $flags
 done
