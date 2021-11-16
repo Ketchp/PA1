@@ -2,7 +2,7 @@
 FLAGS="-y --suppress-common-lines --text"
 
 SAMPLE=CZE
-for NUM in {0000..0001}
+for NUM in {0000..0002}
 do
     echo $SAMPLE/${NUM}_out.txt
     ./main <$SAMPLE/${NUM}_in.txt >$SAMPLE/${NUM}_out.st.txt
