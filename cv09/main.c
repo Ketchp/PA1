@@ -20,7 +20,7 @@ int main()
         }
         char *start = buff, *end = buff + read - 1;
         int printable = 0, sensitive = 1;
-        while( start < end )
+        while( start <= end )
         {
             if( isspace( *start ) ) start++;
             else if( isspace( *end ) ) end--;
