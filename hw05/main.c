@@ -145,13 +145,25 @@ rank_t *gRank;
 int main()
 {
     int count;
-    char operation, cariage_return;
+    char operation, space, cariage_return;
     printf( "Pocet sledovanych:\n" );
-    if( scanf( "%d%c", &count, &cariage_return ) != 2 || count <= 0 || cariage_return != '\n' )
+    char *lineBuffer;
+    size_t bufferSize;
+    ssize_t ret;
+    if( getline( &lineBuffer, &bufferSize, stdin ) <= 1 )
     {
         printf( "Nespravny vstup.\n" );
+        free( lineBuffer );
         return 0;
     }
+
+    if( sscanf( lineBuffer, "%d%c", &count, &cariage_return ) != 2 || count <= 0 || cariage_return != '\n')
+    {
+        printf( "Nespravny vstup.\n" );
+        free( lineBuffer );
+        return 0;
+    }
+
     printf( "Pozadavky:\n" );
     
     leaf_t *stringTree = (leaf_t *)calloc( 1, sizeof(*stringTree) );
@@ -169,46 +181,56 @@ int main()
     rank_t *endRank = ranks + count;
     int noRankedItems = 0;
     int soldRanked = 0;
-    while( scanf( "%c", &operation ) != EOF )
+    while( (ret = getline( &lineBuffer, &bufferSize, stdin )) != -1 )
     {
-        char new_item[ MAX_ITEM_LEN ];
 //        rank_t *pRank = firstRank;
-        switch( operation )
+        char newItem[ MAX_ITEM_LEN ];
+        if( sscanf( lineBuffer, "%c%c%99s%c", &operation, &space, newItem, &cariage_return ) == 4 )
         {
-        case '+':
-            if( scanf( " %99s%c", new_item, &cariage_return ) != 2 || cariage_return != '\n' )
+            if( operation != '+' || space != ' ' || strlen(newItem) == 0 || cariage_return != '\n' )
             {
                 printf( "Nespravny vstup.\n" );
                 emptyTree( stringTree );
                 emptyList( firstRank );
+                free( lineBuffer );
                 return 0;
             }
-            add( stringTree, new_item,
+        }
+        else if( sscanf( lineBuffer, "%c%c", &operation, &cariage_return ) == 2)
+        {
+            if( (operation != '?' && operation != '#') || cariage_return != '\n' )
+            {
+                printf( "Nespravny vstup.\n" );
+                emptyTree( stringTree );
+                emptyList( firstRank );
+                free( lineBuffer );
+                return 0;
+            }
+        }
+        else
+        {
+            printf( "Nespravny vstup.\n" );
+            emptyTree( stringTree );
+            emptyList( firstRank );
+            free( lineBuffer );
+            return 0;
+        }
+        
+        switch( operation )
+        {
+        case '+':
+            add( stringTree, newItem,
                  &firstRank, &edgeRank, &endRank,
                  &noRankedItems, count, &soldRanked );
 
             break;
 
         case '#':
-            if( scanf( "%c", &cariage_return ) != 1 || cariage_return != '\n' )
-            {
-                printf( "Nespravny vstup.\n" );
-                emptyTree( stringTree );
-                emptyList( firstRank );
-                return 0;
-            }
             printRanks( firstRank, edgeRank );
             printItemCount( soldRanked );
             break;
 
         case '?':
-            if( scanf( "%c", &cariage_return ) != 1 || cariage_return != '\n' )
-            {
-                printf( "Nespravny vstup.\n" );
-                emptyTree( stringTree );
-                emptyList( firstRank );
-                return 0;
-            }
             printItemCount( soldRanked );
             break;
 
@@ -246,15 +268,11 @@ int main()
             }
             break;
 */
-        default:
-            printf( "Nespravny vstup.\n" );
-            emptyTree( stringTree );
-                emptyList( firstRank );
-            return 0;
         }
     }
     emptyTree( stringTree );
     emptyList( firstRank );
+    free( lineBuffer );
     return 0;
 }
 
