@@ -103,7 +103,12 @@ void moveItem( item_t *reference, rank_t *destRank );
  * 
  * @param item item to be added
  */
-void addItem( leaf_t *item, rank_t *destRank );
+void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems );
+
+/**
+ * @brief check wheather edge rank is set correctly and moves it if neccesary
+ */
+void moveEdge( rank_t **edgeRank, int *noRankedItems, int count );
 
 /**
  * @brief free's all items in rank
@@ -184,18 +189,14 @@ void add(leaf_t *stringTree, char *new_string,
     if( (*edgeRank)->sold <= sold )
     {
         item_t *reference = itemLeaf->reference;
-        if( reference )
-        {
-            rank_t *sourceRank = reference->rank;
-            rank_t *destinationRank = getRank( sourceRank, sold, 
-                                                firstRank, endRank);
+        rank_t *sourceRank = reference ? reference->rank : edgeRank;
+        rank_t *destinationRank = getRank( sourceRank, sold, 
+                                            firstRank, endRank);
 
-            moveItem( reference, destinationRank );
-        }
-        else //no reference -> need to create new, surely(!!verify!!) in edgeRank
-        {
-            addItem( itemLeaf, edgeRank );
-        }
+        if( reference ) moveItem( reference, destinationRank );
+        else addItem( itemLeaf, destinationRank, noRankedItems );
+
+        moveEdge( edgeRank, noRankedItems, count );
     }
 }
 
@@ -220,19 +221,6 @@ int treeIdx(char c)
     return c - SMALLEST_CHAR;
 }
 
-/* reference exists and there are x posibilities
- *  1. higher rank has right sold count
- *  2. higher rank does not have right sold count / does not exist
- *               { higher sold count than needed} / {if rank is already first}
- * 
- *  1. - - - - - - - - - - - - - - - - - - - - - - - - - - \
- *  2. -> delete endRank{free all Items} -> create new rank -> shift item to previous
- * 
- * if( shifting from edgeRank )
- * {
- *   if(noRankedItems - edgeRank.count >= count) { shift edgeRank and update noRankedItems }
- * }
- */
 rank_t *getRank( rank_t *reference, int newSold,
                   rank_t **firstRank, rank_t **endRank )
 {
@@ -298,15 +286,26 @@ void moveItem( item_t *reference, rank_t *destRank )
     destRank->firstItem = reference;
 }
 
-void addItem( leaf_t *item, rank_t *destRank )
+void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems )
 {
     item_t *newItem = (item_t *)malloc( sizeof(*newItem) );
     newItem->previous = NULL;
     newItem->next = destRank->firstItem;
     newItem->leaf = item;
     newItem->rank = destRank;
-    
+
     destRank->firstItem->previous = newItem;
     destRank->firstItem = newItem;
     destRank->noItems++;
+    *noRankedItems++;
+}
+
+void moveEdge( rank_t **edgeRank, int *noRankedItems, int count )
+{
+    if( (*edgeRank)->lower && (*edgeRank)->lower->sold == 0 ) *edgeRank = (*edgeRank)->lower;
+    while( *noRankedItems - (*edgeRank)->noItems >= count )
+    {
+        *noRankedItems -= (*edgeRank)->noItems;
+        *edgeRank = (*edgeRank)->higher;
+    }
 }
