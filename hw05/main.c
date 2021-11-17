@@ -58,12 +58,13 @@ int treeIdx( char c );
  * @param edgeRank ptr to list of least selling items
  * @param endRank ptr to last rank which may not be updated/displyed
  *                because is beyond scope 
- * @param noRankedItems count of items which are in scope
+ * @param noRankedItems items which are in scope
  * @param count size of scope
+ * @param soldRanked count od items*solds in scope
  */
 void add(leaf_t *stringTree, char *new_string,
           rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
-          int *noRankedItems, int count );
+          int *noRankedItems, int count, int *soldRanked );
 
 /**
  * @brief Get/Create the Leaf object which stores item
@@ -103,17 +104,28 @@ void moveItem( item_t *reference, rank_t *destRank );
  * 
  * @param item item to be added
  */
-void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems );
+void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems, int *soldRanked );
 
 /**
  * @brief check wheather edge rank is set correctly and moves it if neccesary
  */
-void moveEdge( rank_t **edgeRank, int *noRankedItems, int count );
+void moveEdge( rank_t **edgeRank, int *noRankedItems, int count, int *soldRanked );
 
 /**
  * @brief free's all items in rank
  */
 void emptyRank( rank_t *rank );
+
+/**
+ * @brief Print all ranked items
+ */
+void printRanks( rank_t *firstRank, rank_t *edgeRank );
+
+/**
+ * @brief Print number of sold ranked items 
+ */
+void printItemCount( int soldRanked );
+
 
 int main()
 {
@@ -139,6 +151,7 @@ int main()
     rank_t *edgeRank = ranks;
     rank_t *endRank = ranks + count;
     int noRankedItems = 0;
+    int soldRanked = 0;
     while( scanf( "%c", &operation ) != EOF )
     {
         char new_item[ MAX_ITEM_LEN ];
@@ -152,7 +165,7 @@ int main()
             }
             add( stringTree, new_item,
                  &firstRank, &edgeRank, &endRank,
-                 &noRankedItems, count );
+                 &noRankedItems, count, &soldRanked );
 
             break;
 
@@ -162,6 +175,8 @@ int main()
                 printf( "Nespravny vstup.\n" );
                 return 0;
             }
+            printRanks( firstRank, edgeRank );
+            printItemCount( soldRanked );
             break;
 
         case '?':
@@ -170,6 +185,7 @@ int main()
                 printf( "Nespravny vstup.\n" );
                 return 0;
             }
+            printItemCount( soldRanked );
             break;
 
         default:
@@ -182,7 +198,7 @@ int main()
 
 void add(leaf_t *stringTree, char *new_string,
          rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
-         int *noRankedItems, int count)
+         int *noRankedItems, int count, int *soldRanked)
 {
     leaf_t *itemLeaf = getLeaf( stringTree, new_string );
     int sold = ++itemLeaf->sold;
@@ -194,9 +210,9 @@ void add(leaf_t *stringTree, char *new_string,
                                             firstRank, endRank);
 
         if( reference ) moveItem( reference, destinationRank );
-        else addItem( itemLeaf, destinationRank, noRankedItems );
+        else addItem( itemLeaf, destinationRank, noRankedItems, soldRanked );
 
-        moveEdge( edgeRank, noRankedItems, count );
+        moveEdge( edgeRank, noRankedItems, count, soldRanked );
     }
 }
 
@@ -286,7 +302,7 @@ void moveItem( item_t *reference, rank_t *destRank )
     destRank->firstItem = reference;
 }
 
-void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems )
+void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems, int *soldRanked )
 {
     item_t *newItem = (item_t *)malloc( sizeof(*newItem) );
     newItem->previous = NULL;
@@ -298,14 +314,48 @@ void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems )
     destRank->firstItem = newItem;
     destRank->noItems++;
     *noRankedItems++;
+    *soldRanked += item->sold;
 }
 
-void moveEdge( rank_t **edgeRank, int *noRankedItems, int count )
+void moveEdge( rank_t **edgeRank, int *noRankedItems, int count, int *soldRanked )
 {
     if( (*edgeRank)->lower && (*edgeRank)->lower->sold == 0 ) *edgeRank = (*edgeRank)->lower;
     while( *noRankedItems - (*edgeRank)->noItems >= count )
     {
         *noRankedItems -= (*edgeRank)->noItems;
+        *soldRanked -= (*edgeRank)->noItems * (*edgeRank)->sold;
         *edgeRank = (*edgeRank)->higher;
     }
+}
+
+void printRank( rank_t *currRank, int rank )
+{
+    item_t *item = currRank->firstItem;
+    while( item )
+    {
+        if( currRank->noItems > 1)
+        {
+            printf( "%d.-%d. %s, %dx",
+                     rank, rank + currRank->noItems - 1, 
+                     item->leaf->word, currRank->sold );
+        }
+        else printf( "%d. %s, %dx", rank, item->leaf->word, currRank->sold );
+    }
+}
+
+void printRanks( rank_t *firstRank, rank_t *edgeRank )
+{
+    int rank = 1;
+    while( firstRank != edgeRank )
+    {
+        printRank( firstRank, rank );
+        rank += firstRank->noItems;
+        firstRank = firstRank->lower;
+    }
+    printRank( firstRank, rank );
+}
+
+void printItemCount( int soldRanked )
+{
+    printf( "Nejprodavanejsi zbozi: prodano %d kusu", soldRanked );
 }
