@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <unistd.h>
 
-int debug = 1;
+int debug = 0;
 
 #define SMALLEST_CHAR '!'
 #define LARGEST_CHAR '~'
@@ -102,7 +102,7 @@ rank_t *createRank( rank_t *position, int newSold,
 /**
  * @brief moves referenced item to destRank (updates edgeRank if necessary)
  */
-void moveItem( item_t *reference, rank_t *destRank );
+void moveItem( item_t *reference, rank_t *destRank, rank_t **endRank, int *soldRanked );
 
 /**
  * @brief Creates new item reference in appropiate rank
@@ -117,11 +117,6 @@ void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems, int *soldRanke
 void moveEdge( rank_t **edgeRank, int *noRankedItems, int count, int *soldRanked );
 
 /**
- * @brief free's all items in rank
- */
-void emptyRank( rank_t *rank );
-
-/**
  * @brief Print all ranked items
  */
 void printRanks( rank_t *firstRank, rank_t *edgeRank );
@@ -131,6 +126,20 @@ void printRanks( rank_t *firstRank, rank_t *edgeRank );
  */
 void printItemCount( int soldRanked );
 
+/**
+ * @brief free's all items in rank
+ */
+void emptyRank( rank_t *rank );
+
+/**
+ * @brief free's all items from all ranks
+ */
+void emptyList( rank_t *rank );
+
+/**
+ * @brief recursively free whole tree
+ */
+void emptyTree( leaf_t *tree);
 
 rank_t *gRank;
 int main()
@@ -163,13 +172,15 @@ int main()
     while( scanf( "%c", &operation ) != EOF )
     {
         char new_item[ MAX_ITEM_LEN ];
-        rank_t *pRank = firstRank;
+//        rank_t *pRank = firstRank;
         switch( operation )
         {
         case '+':
             if( scanf( " %99s%c", new_item, &cariage_return ) != 2 || cariage_return != '\n' )
             {
                 printf( "Nespravny vstup.\n" );
+                emptyTree( stringTree );
+                emptyList( firstRank );
                 return 0;
             }
             add( stringTree, new_item,
@@ -182,6 +193,8 @@ int main()
             if( scanf( "%c", &cariage_return ) != 1 || cariage_return != '\n' )
             {
                 printf( "Nespravny vstup.\n" );
+                emptyTree( stringTree );
+                emptyList( firstRank );
                 return 0;
             }
             printRanks( firstRank, edgeRank );
@@ -192,11 +205,14 @@ int main()
             if( scanf( "%c", &cariage_return ) != 1 || cariage_return != '\n' )
             {
                 printf( "Nespravny vstup.\n" );
+                emptyTree( stringTree );
+                emptyList( firstRank );
                 return 0;
             }
             printItemCount( soldRanked );
             break;
 
+/*
         case 'X':
             if( scanf( "%c", &cariage_return ) != 1 || cariage_return != '\n' )
             {
@@ -229,12 +245,16 @@ int main()
                 pRank = pRank->lower;
             }
             break;
-
+*/
         default:
             printf( "Nespravny vstup.\n" );
+            emptyTree( stringTree );
+                emptyList( firstRank );
             return 0;
         }
     }
+    emptyTree( stringTree );
+    emptyList( firstRank );
     return 0;
 }
 
@@ -249,15 +269,16 @@ void add(leaf_t *stringTree, char *new_string,
     {
         item_t *reference = itemLeaf->reference;
         rank_t *sourceRank = reference ? reference->rank : *edgeRank;
-        printf("Get %ld %d", sourceRank - gRank, sold);
+
+        debug && printf("Get %ld %d", sourceRank - gRank, sold);
         rank_t *destinationRank = getRank( sourceRank, sold, 
                                             firstRank, endRank);
-        printf("->%ld\n", destinationRank - gRank);
+        debug && printf("->%ld\n", destinationRank - gRank);
 
         if( reference )
         {
             debug && printf("Moving to: %d %d\n", destinationRank->sold, destinationRank->noItems);
-            moveItem( reference, destinationRank );
+            moveItem( reference, destinationRank, endRank, soldRanked );
         }
         else
         {
@@ -311,7 +332,6 @@ rank_t *getRank( rank_t *reference, int newSold,
 rank_t *createRank( rank_t *position, int newSold, 
                      rank_t **firstRank, rank_t **endRank )
 {
-    printf("creating\n");
     emptyRank( *endRank );
     rank_t *newEndRank = (*endRank)->higher;
     rank_t *twoHigherRank = position->higher;
@@ -329,27 +349,27 @@ rank_t *createRank( rank_t *position, int newSold,
     return position->higher;
 }
 
-void emptyRank( rank_t *rank )
-{
-    item_t *item = rank->firstItem;
-    while( item )
-    {
-        item->leaf->reference = NULL;
-        item_t *nextItem = item->next;
-        free( item );
-        item = nextItem;
-    }
-    rank->firstItem = NULL;
-    rank->noItems = 0;
-}
-
-void moveItem( item_t *reference, rank_t *destRank )
+void moveItem( item_t *reference, rank_t *destRank, rank_t **endRank, int *soldRanked )
 {
     rank_t *sourceRank = reference->rank;
     sourceRank->noItems--;
+    ++*soldRanked;
 
     if( reference->previous ) reference->previous->next = reference->next;
     else sourceRank->firstItem = reference->next;
+    if( !sourceRank->noItems )
+    {
+        assert( sourceRank->higher );
+        sourceRank->higher->lower = sourceRank->lower;
+        assert( sourceRank->lower );
+        sourceRank->lower->higher = sourceRank->higher;
+
+        sourceRank->higher = *endRank;
+        sourceRank->lower = NULL;
+
+        (*endRank)->lower = sourceRank;
+        *endRank = sourceRank;
+    }
 
     if( reference->next ) reference->next->previous = reference->previous;
 
@@ -421,4 +441,37 @@ void printRanks( rank_t *firstRank, rank_t *edgeRank )
 void printItemCount( int soldRanked )
 {
     printf( "Nejprodavanejsi zbozi: prodano %d kusu\n", soldRanked );
+}
+
+void emptyRank( rank_t *rank )
+{
+    item_t *item = rank->firstItem;
+    while( item )
+    {
+        item->leaf->reference = NULL;
+        item_t *nextItem = item->next;
+        free( item );
+        item = nextItem;
+    }
+    rank->firstItem = NULL;
+    rank->noItems = 0;
+}
+
+void emptyList( rank_t *rank )
+{
+    while( rank )
+    {
+        emptyRank( rank );
+        rank = rank->lower;
+    }
+}
+
+void emptyTree( leaf_t *tree)
+{
+    if(!tree) return;
+    for(int kid = 0; kid < PRINTABLE_CHARS; kid++)
+    {
+        emptyTree( tree->kids[kid] );
+    }
+    free( tree );
 }
