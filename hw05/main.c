@@ -81,7 +81,7 @@ leaf_t *getLeaf( leaf_t *stringTree, char *new_string );
  * @param newSold required sold count
  */
 rank_t *getRank( rank_t *reference, int newSold,
-                  rank_t **firstRank, rank_t **edgeRank, rank_t **endRank );
+                  rank_t **firstRank, rank_t **endRank );
 
 /**
  * @brief Create a Rank object
@@ -96,18 +96,14 @@ rank_t *createRank( rank_t *position, int newSold,
 /**
  * @brief moves referenced item to destRank (updates edgeRank if necessary)
  */
-void moveItem( item_t *reference, rank_t *destRank,
-                rank_t **edgeRank,
-                int *noRankedItems, int count );
+void moveItem( item_t *reference, rank_t *destRank );
 
 /**
  * @brief Creates new item reference in appropiate rank
  * 
  * @param item item to be added
  */
-void addItem( leaf_t *item,
-               rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
-               int *noRankedItems, int count );
+void addItem( leaf_t *item, rank_t *destRank );
 
 /**
  * @brief free's all items in rank
@@ -190,15 +186,15 @@ void add(leaf_t *stringTree, char *new_string,
         item_t *reference = itemLeaf->reference;
         if( reference )
         {
-            rank_t *destinationRank = getRank( reference->rank, sold, 
-                                                firstRank, edgeRank, endRank);
+            rank_t *sourceRank = reference->rank;
+            rank_t *destinationRank = getRank( sourceRank, sold, 
+                                                firstRank, endRank);
 
-            moveItem( reference, destinationRank, edgeRank, noRankedItems, count );
+            moveItem( reference, destinationRank );
         }
         else //no reference -> need to create new, surely(!!verify!!) in edgeRank
         {
-            addItem( itemLeaf, firstRank, edgeRank, endRank, 
-                      noRankedItems, count );
+            addItem( itemLeaf, edgeRank );
         }
     }
 }
@@ -238,7 +234,7 @@ int treeIdx(char c)
  * }
  */
 rank_t *getRank( rank_t *reference, int newSold,
-                  rank_t **firstRank, rank_t **edgeRank, rank_t **endRank )
+                  rank_t **firstRank, rank_t **endRank )
 {
     rank_t *destination = reference;
     while( destination->higher && destination->higher->sold <= newSold )
@@ -246,6 +242,8 @@ rank_t *getRank( rank_t *reference, int newSold,
         destination = destination->higher;
     }
     if( destination->sold == newSold ) return destination;
+    return createRank( destination, newSold, 
+                        firstRank, endRank);
 
 }
 
@@ -281,4 +279,34 @@ void emptyRank( rank_t *rank )
     }
     rank->firstItem = NULL;
     rank->noItems = 0;
+}
+
+void moveItem( item_t *reference, rank_t *destRank )
+{
+    rank_t *sourceRank = reference->rank;
+    sourceRank->noItems--;
+
+    if( reference->previous ) reference->previous->next = reference->next;
+    else sourceRank->firstItem = reference->next;
+
+    if( reference->next ) reference->next->previous = reference->previous;
+
+    destRank->noItems++;
+    reference->rank = destRank;
+    reference->next = destRank->firstItem;
+    destRank->firstItem->previous = reference;
+    destRank->firstItem = reference;
+}
+
+void addItem( leaf_t *item, rank_t *destRank )
+{
+    item_t *newItem = (item_t *)malloc( sizeof(*newItem) );
+    newItem->previous = NULL;
+    newItem->next = destRank->firstItem;
+    newItem->leaf = item;
+    newItem->rank = destRank;
+    
+    destRank->firstItem->previous = newItem;
+    destRank->firstItem = newItem;
+    destRank->noItems++;
 }
