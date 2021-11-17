@@ -8,39 +8,97 @@
 #define MAX_ITEM_LEN 100
 #define PARSE_STRING "%99s"
 
-typedef struct leaf leaf_t;
-typedef struct link link_t;
-typedef struct item item_t;
-
-
-struct leaf
+/**
+ * @brief type for storing items{name, count}
+ */
+typedef struct leaf
 {
-    leaf_t *root;
-    leaf_t *kids[ PRINTABLE_CHARS ];
-    link_t *reference;
-    char letter;
-    int count;
-};
+//    leaf_t *root;
+    struct leaf *kids[ PRINTABLE_CHARS ];
+    struct item *reference;
+    char word[ MAX_ITEM_LEN ];
+    int sold;
+} leaf_t;
 
-struct link
+/**
+ * @brief linked list of items with references on rank and item tree
+ */
+typedef struct item
 {
-    link_t *next, *previous;
-    leaf_t *name;
-    item_t *root;
-};
+    struct item *next, *previous;
+    struct leaf *leaf;
+    struct rank *rank;
+} item_t;
 
-struct item
+/**
+ * @brief type for storing items with same rank
+ */
+typedef struct rank
 {
-    link_t *first_link;
-    item_t *next, *previous;
-    int count;
-    int value;
-};
+    struct item *firstItem;
+    struct rank *higher, *lower;
+    int noItems; //number of items of this rank
+    int sold; //number of sold items of one kind
+} rank_t;
 
-int treeIdx(char c);
-void add(leaf_t *stringTree, char *new_string, item_t *topSellers,
-            item_t *last_item, int geItemCount, int count, item_t *list_end);
-leaf_t *getLeaf( leaf_t *stringTree, char *new_string);
+/**
+ * @brief translation from prantable ASCII to indexes
+ * 
+ * @param c printable ASCII
+ * @return int index
+ */
+int treeIdx( char c );
+
+/**
+ * @brief Add item record to multiple data structures
+ * 
+ * @param stringTree Tree storing all items, names and counts
+ * @param new_string name of item to be added
+ * @param firstRank ptr to list of most selling items 
+ * @param edgeRank ptr to list of least selling items
+ * @param endRank ptr to last rank which may not be updated/displyed
+ *                because is beyond scope 
+ * @param noRankedItems count of items which are in scope
+ * @param count size of scope
+ */
+void add(leaf_t *stringTree, char *new_string,
+          rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
+          int *noRankedItems, int count );
+
+/**
+ * @brief Get/Create the Leaf object which stores item
+ * 
+ * @param stringTree Tree storing all items
+ * @param new_string name of item
+ * @return leaf_t* ptr to item in stringTree
+ */
+leaf_t *getLeaf( leaf_t *stringTree, char *new_string );
+
+/**
+ * @brief Get/Create the Rank object with items of newSold
+ * 
+ * @param reference rank to start search
+ * @param newSold required sold count
+ */
+rank_t *getRank( rank_t *reference, int newSold,
+                  rank_t **firstRank, rank_t **edgeRank, rank_t **endRank );
+
+/**
+ * @brief moves referenced item to destRank (updates edgeRank if necessary)
+ */
+void moveItem( item_t *reference, rank_t *destRank,
+                rank_t **edgeRank,
+                int *noRankedItems, int count );
+
+/**
+ * @brief Creates new item reference in appropiate rank
+ * 
+ * @param item item to be added
+ */
+void addItem( leaf_t *item,
+               rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
+               int *noRankedItems, int count );
+
 
 int main()
 {
@@ -52,21 +110,23 @@ int main()
         printf( "Nespravny vstup.\n" );
     }
     printf( "Pozadavky:\n" );
-    char new_item[ MAX_ITEM_LEN ];
+    
     leaf_t *stringTree = (leaf_t *)calloc( 1, sizeof(*stringTree) );
-    item_t *topSellers = (item_t *)calloc( count, sizeof(*topSellers) );
-    topSellers[0].next = topSellers + 1;
-    for(int i = 1; i < count-1; i++)
+    rank_t *ranks = (rank_t *)calloc( count + 1, sizeof(*ranks) );
+    ranks[0].lower = ranks + 1;
+    for(int i = 1; i < count; i++)
     {
-        topSellers[i].next = topSellers + i + 1;
-        topSellers[i].previous = topSellers + i - 1;
+        ranks[i].lower =  ranks + i + 1;
+        ranks[i].higher = ranks + i - 1;
     }
-    topSellers[count - 1].previous = topSellers + count - 2;
-    item_t *last_item = topSellers;
-    item_t *list_end = topSellers + count - 1;
-    int geItemCount = 0;
+    ranks[ count ].higher = ranks + count - 1;
+    rank_t *firstRank = ranks;
+    rank_t *edgeRank = ranks;
+    rank_t *endRank = ranks + count;
+    int noRankedItems = 0;
     while( scanf( "%c", &operation ) != EOF )
     {
+        char new_item[ MAX_ITEM_LEN ];
         switch( operation )
         {
         case '+':
@@ -75,8 +135,10 @@ int main()
                 printf( "Nespravny vstup.\n" );
                 return 0;
             }
-            add(stringTree, new_item, topSellers,
-                 last_item, geItemCount, count, list_end);
+            add( stringTree, new_item,
+                 &firstRank, &edgeRank, &endRank,
+                 &noRankedItems, count );
+
             break;
 
         case '#':
@@ -103,17 +165,26 @@ int main()
     return 0;
 }
 
-void add(leaf_t *stringTree, char *new_string, item_t *topSellers,
- item_t *last_item, int geItemCount, int count, item_t *list_end)
+void add(leaf_t *stringTree, char *new_string,
+         rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
+         int *noRankedItems, int count)
 {
-    leaf_t *item_leaf = getLeaf( stringTree, new_string );
-    item_leaf->count++;
-    if( last_item->value <= item_leaf->count )
+    leaf_t *itemLeaf = getLeaf( stringTree, new_string );
+    int sold = ++itemLeaf->sold;
+    if( (*edgeRank)->sold <= sold )
     {
-        link_t *reference = item_leaf->reference;
+        item_t *reference = itemLeaf->reference;
         if( reference )
         {
-            shiftLink(reference);
+            rank_t *destinationRank = getRank( reference->rank, sold, 
+                                                firstRank, edgeRank, endRank);
+
+            moveItem( reference, destinationRank, edgeRank, noRankedItems, count );
+        }
+        else //no reference -> need to create new, surely(!!verify!!) in edgeRank
+        {
+            addItem( itemLeaf, firstRank, edgeRank, endRank, 
+                      noRankedItems, count );
         }
     }
 }
@@ -126,11 +197,11 @@ leaf_t *getLeaf( leaf_t *stringTree, char *new_string)
         {
             stringTree->kids[ treeIdx(*c) ] = 
                 (leaf_t *)calloc( 1, sizeof(*stringTree) );
-            stringTree->kids[ treeIdx(*c) ].root = stringTree;
+//            stringTree->kids[ treeIdx(*c) ].root = stringTree;
         }
-        stringTree = stringTree[ treeIdx(*c) ];
-        stringTree->letter = *c;
+        stringTree = stringTree->kids[ treeIdx(*c) ];
     }
+    if( stringTree->word[0] == '\0' ) strcpy( stringTree->word, new_string );
     return stringTree;
 }
 
@@ -139,28 +210,21 @@ int treeIdx(char c)
     return c - SMALLEST_CHAR;
 }
 
-shiftLink(link_t *reference)
+/* reference exists and there are x posibilities
+ *  1. higher rank has right sold count
+ *  2. higher rank does not have right sold count / does not exist
+ *               { higher sold count than needed} / {if rank is already first}
+ * 
+ *  1. - - - - - - - - - - - - - - - - - - - - - - - - - - \
+ *  2. -> delete endRank{free all Items} -> create new rank -> shift item to previous
+ * 
+ * if( shifting from edgeRank )
+ * {
+ *   if(noRankedItems - edgeRank.count >= count) { shift edgeRank and update noRankedItems }
+ * }
+ */
+rank_t *getRank( rank_t *reference, int newSold,
+                  rank_t **firstRank, rank_t **edgeRank, rank_t **endRank )
 {
-    if( reference->next )
-    {
-        reference->next->previous = reference->previous;
-    }
-    if( reference->previous )
-    {
-        reference->previous->next = reference->next;
-    }
-    if( !reference->previous && !reference->next &&
-        ( !reference->root->previous ||
-            reference->root->previous->value == item_leaf->count ) )
-    {
-        if( reference->root->next )
-        {
-            reference->root->next->previous = reference->previous;
-        }
-        if( reference->root->previous )
-        {
-            reference->root->previous->next = 
-        }
-    }
-
+    return NULL; //todo
 }
