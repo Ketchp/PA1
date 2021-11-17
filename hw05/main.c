@@ -84,6 +84,16 @@ rank_t *getRank( rank_t *reference, int newSold,
                   rank_t **firstRank, rank_t **edgeRank, rank_t **endRank );
 
 /**
+ * @brief Create a Rank object
+ * 
+ * @param position rank lower than new rank
+ * @param sold sold count of newly created rank
+ * @return rank_t* created rank
+ */
+rank_t *createRank( rank_t *position, int newSold, 
+                     rank_t **firstRank, rank_t **endRank );
+
+/**
  * @brief moves referenced item to destRank (updates edgeRank if necessary)
  */
 void moveItem( item_t *reference, rank_t *destRank,
@@ -99,6 +109,10 @@ void addItem( leaf_t *item,
                rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
                int *noRankedItems, int count );
 
+/**
+ * @brief free's all items in rank
+ */
+void emptyRank( rank_t *rank );
 
 int main()
 {
@@ -226,5 +240,45 @@ int treeIdx(char c)
 rank_t *getRank( rank_t *reference, int newSold,
                   rank_t **firstRank, rank_t **edgeRank, rank_t **endRank )
 {
-    return NULL; //todo
+    rank_t *destination = reference;
+    while( destination->higher && destination->higher->sold <= newSold )
+    {
+        destination = destination->higher;
+    }
+    if( destination->sold == newSold ) return destination;
+
+}
+
+rank_t *createRank( rank_t *position, int newSold, 
+                     rank_t **firstRank, rank_t **endRank )
+{
+    emptyRank( *endRank );
+    rank_t *newEndRank = (*endRank)->higher;
+    rank_t *twoHigherRank = position->higher;
+
+    (*endRank)->lower = position;
+    (*endRank)->higher = twoHigherRank;
+    (*endRank)->sold = newSold;
+
+    position->higher = *endRank;
+    if( twoHigherRank ) twoHigherRank->lower = *endRank;
+    else *firstRank = *endRank;
+
+    *endRank = newEndRank;
+    (*endRank)->lower = NULL;
+    return position->higher;
+}
+
+void emptyRank( rank_t *rank )
+{
+    item_t *item = rank->firstItem;
+    while( item )
+    {
+        item->leaf->reference = NULL;
+        item_t *nextItem = item->next;
+        free( item );
+        item = nextItem;
+    }
+    rank->firstItem = NULL;
+    rank->noItems = 0;
 }
