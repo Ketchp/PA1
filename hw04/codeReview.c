@@ -34,7 +34,7 @@ int main()
     printf( "Pozadavky:\n" );
     while( scanf( "%c ", &operation ) != EOF )
     {
-        int newID, from, to, repetition;
+        int newID, from, to, repetition, unique;
         switch( operation )
         {
         case '+':
@@ -62,8 +62,8 @@ int main()
                 return 0;
             }
 
-            repetition = query( visits, from, to );
-            printf( "> %d / %d\n", repetition, to - from + 1 );
+            unique = query( visits, from, to );
+            printf( "> %d / %d\n", unique, to - from + 1 );
             break;
 
         default:
@@ -77,13 +77,13 @@ int main()
 int add( int *visits, int *idCount, int id, int visitCount )
 {
     idCount[id]++;
-    visits[visitCount] = id;
+    visits[ visitCount ] = id;
     return idCount[id];
 }
 
 int query( int *visits, int from, int to )
 {
-    int visited[MAX_ID] = {0};
+    int visited[ MAX_ID ] = {0};
 
     int id_count = 0;
     for( int time = from; time <= to; time++ )
