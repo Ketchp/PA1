@@ -21,9 +21,8 @@ typedef struct leaf
     struct leaf *root;
     struct leaf *kids[ PRINTABLE_CHARS ];
     struct item *reference;
-//    char word[ MAX_ITEM_LEN ];
-    char letter;
     int sold;
+    char letter;
 } leaf_t;
 
 /**
@@ -48,7 +47,7 @@ typedef struct rank
 } rank_t;
 
 /**
- * @brief translation from prantable ASCII to indexes
+ * @brief translation from printable ASCII to indexes
  * 
  * @param c printable ASCII
  * @return int index
@@ -60,17 +59,15 @@ int treeIdx( char c );
  * 
  * @param stringTree Tree storing all items, names and counts
  * @param new_string name of item to be added
- * @param firstRank ptr to list of most selling items 
- * @param edgeRank ptr to list of least selling items
- * @param endRank ptr to last rank which may not be updated/displyed
- *                because is beyond scope 
+ * @param top ptr to list of most selling items
+ * @param bottom ptr to list of least selling items
  * @param noRankedItems items which are in scope
- * @param count size of scope
  * @param soldRanked count od items*solds in scope
+ * @param count size of scope
  */
 void add(leaf_t *stringTree, char *new_string,
-          rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
-          int *noRankedItems, int count, int *soldRanked );
+          rank_t **top, rank_t **bottom,
+          int *noRankedItems, int *soldRanked, int count );
 
 /**
  * @brief Get/Create the Leaf object which stores item
@@ -87,8 +84,7 @@ leaf_t *getLeaf( leaf_t *stringTree, char *new_string );
  * @param reference rank to start search
  * @param newSold required sold count
  */
-rank_t *getRank( rank_t *reference, int newSold,
-                  rank_t **firstRank, rank_t **endRank );
+rank_t *getRank( rank_t *reference, int newSold, rank_t **top );
 
 /**
  * @brief Create a Rank object
@@ -97,13 +93,19 @@ rank_t *getRank( rank_t *reference, int newSold,
  * @param sold sold count of newly created rank
  * @return rank_t* created rank
  */
-rank_t *createRank( rank_t *position, int newSold, 
-                     rank_t **firstRank, rank_t **endRank );
+rank_t *createRank( rank_t *position, int newSold, rank_t **top );
 
 /**
  * @brief moves referenced item to destRank (updates edgeRank if necessary)
  */
-void moveItem( item_t *reference, rank_t *destRank, rank_t **endRank, int *soldRanked );
+void moveItem( item_t *reference, rank_t *destRank, rank_t **bottom, int *soldRanked );
+
+/**
+ * @brief delete and free rank from linked list
+ * 
+ * @param bottom updated if rank == *bottom
+ */
+void deleteRank( rank_t *rank, rank_t **bottom );
 
 /**
  * @brief Creates new item reference in appropiate rank
@@ -115,12 +117,12 @@ void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems, int *soldRanke
 /**
  * @brief check wheather edge rank is set correctly and moves it if neccesary
  */
-void moveEdge( rank_t **edgeRank, int *noRankedItems, int count, int *soldRanked );
+void moveBottom( rank_t **bottom, int *noRankedItems, int *soldRanked, int count );
 
 /**
  * @brief Print all ranked items
  */
-void printRanks( rank_t *firstRank, rank_t *edgeRank );
+void printRanks( rank_t *top, int count );
 
 /**
  * @brief Print number of sold ranked items 
@@ -147,13 +149,45 @@ void emptyList( rank_t *rank );
  */
 void emptyTree( leaf_t *tree);
 
+void printDebug( rank_t **top, int *noRankedItems, int *soldRanked )
+{
+    if(debug)
+    {
+        rank_t *pRank = *top;
+        printf("%d %d\n", *noRankedItems, *soldRanked);
+        int rankC = 0;
+        while( pRank )
+        {
+            printf( "%d. %p<=%p=>%p: %d %d %p\n", rankC++,
+                    (void *)pRank->higher, (void *)pRank, (void *)pRank->lower,
+                    pRank->sold, pRank->noItems, (void *)pRank->firstItem );
+
+            item_t *itm = pRank->firstItem;
+            while( itm )
+            {
+                char buffer[ MAX_ITEM_LEN ];
+                getString( itm->leaf, buffer);
+                printf("%s:%d ", buffer, itm->leaf->sold);
+                if( itm->rank != pRank )
+                    printf("WARNING1: %p != %p", (void *)itm->rank, (void *)pRank);
+                if( itm->leaf->reference != itm )
+                    printf("WARNING2: %p != %p", (void *)itm->leaf->reference, (void *)itm);
+                itm = itm->next;
+            }
+            printf("\n");
+            pRank = pRank->lower;
+        }
+    }
+
+}
+
 rank_t *gRank;
 int main()
 {
     int count;
     char operation, space, cariage_return;
     printf( "Pocet sledovanych:\n" );
-    char *lineBuffer;
+    char *lineBuffer = NULL;
     size_t bufferSize;
     ssize_t ret;
     if( getline( &lineBuffer, &bufferSize, stdin ) <= 1 )
@@ -173,18 +207,8 @@ int main()
     printf( "Pozadavky:\n" );
     
     leaf_t *stringTree = (leaf_t *)calloc( 1, sizeof(*stringTree) );
-    rank_t *ranks = (rank_t *)calloc( count + 1, sizeof(*ranks) );
-    gRank = ranks;
-    ranks[0].lower = ranks + 1;
-    for(int i = 1; i < count; i++)
-    {
-        ranks[i].lower =  ranks + i + 1;
-        ranks[i].higher = ranks + i - 1;
-    }
-    ranks[ count ].higher = ranks + count - 1;
-    rank_t *firstRank = ranks;
-    rank_t *edgeRank = ranks;
-    rank_t *endRank = ranks + count;
+    rank_t *top, *bottom;
+    top = bottom = (rank_t *)calloc( 1, sizeof(*top) );
     int noRankedItems = 0;
     int soldRanked = 0;
     while( (ret = getline( &lineBuffer, &bufferSize, stdin )) != -1 )
@@ -195,8 +219,8 @@ int main()
             if( operation != '+' || space != ' ' || strlen(newItem) == 0 || cariage_return != '\n' )
             {
                 printf( "Nespravny vstup.\n" );
+                emptyList( top );
                 emptyTree( stringTree );
-                emptyList( firstRank );
                 free( lineBuffer );
                 return 0;
             }
@@ -206,8 +230,8 @@ int main()
             if( (operation != '?' && operation != '#') || cariage_return != '\n' )
             {
                 printf( "Nespravny vstup.\n" );
+                emptyList( top );
                 emptyTree( stringTree );
-                emptyList( firstRank );
                 free( lineBuffer );
                 return 0;
             }
@@ -215,8 +239,8 @@ int main()
         else
         {
             printf( "Nespravny vstup.\n" );
+            emptyList( top );
             emptyTree( stringTree );
-            emptyList( firstRank );
             free( lineBuffer );
             return 0;
         }
@@ -225,13 +249,12 @@ int main()
         {
         case '+':
             add( stringTree, newItem,
-                 &firstRank, &edgeRank, &endRank,
-                 &noRankedItems, count, &soldRanked );
-
+                 &top, &bottom,
+                 &noRankedItems, &soldRanked, count );
             break;
 
         case '#':
-            printRanks( firstRank, edgeRank );
+            printRanks( top, count );
             printItemCount( soldRanked );
             break;
 
@@ -241,83 +264,47 @@ int main()
 
         }
     }
+    emptyList( top );
     emptyTree( stringTree );
-    emptyList( firstRank );
     free( lineBuffer );
     return 0;
 }
 
 void add(leaf_t *stringTree, char *new_string,
-         rank_t **firstRank, rank_t **edgeRank, rank_t **endRank,
-         int *noRankedItems, int count, int *soldRanked)
+          rank_t **top, rank_t **bottom,
+          int *noRankedItems, int *soldRanked, int count )
 {
     leaf_t *itemLeaf = getLeaf( stringTree, new_string );
     if(debug)
     {
         char buffer[ MAX_ITEM_LEN ];
         getString( itemLeaf, buffer);
-        printf("leaf found: %s\n", buffer);
+        printf("leaf found: %s,%d\n", buffer, itemLeaf->sold);
+        printf(itemLeaf->reference ? "with reference\n" : "without ref\n");
     }
     int sold = ++itemLeaf->sold;
-    if( (*edgeRank)->sold <= sold )
+    if( (*bottom)->sold <= sold )
     {
         item_t *reference = itemLeaf->reference;
-        rank_t *sourceRank = reference ? reference->rank : *edgeRank;
-        if(debug && reference) printf( "ref:%p\nnext:%p\nprev:%p\nleaf:%p\nrank:%p\n",
-                                        (void *)reference, (void *)reference->next,
-                                        (void *)reference->previous, (void *)reference->leaf,
-                                        (void *)reference->rank );
-        if(debug) printf("Get %ld %d\n", sourceRank - gRank, sold);
-        rank_t *destinationRank = getRank( sourceRank, sold, 
-                                            firstRank, endRank);
-        if(debug) printf("->%ld\n", destinationRank - gRank);
+        rank_t *sourceRank = reference ? reference->rank : *bottom;
+        if(debug) printf("crash\n");
+
+        rank_t *destinationRank = getRank( sourceRank, sold, top );
+        if(debug) printf("crash\n");
 
         if( reference )
         {
-            debug && printf("Moving to: %d %d\n", destinationRank->sold, destinationRank->noItems);
-            moveItem( reference, destinationRank, endRank, soldRanked );
+            moveItem( reference, destinationRank, bottom, soldRanked );
+            if(debug) printf("crash\n");
         }
         else
         {
-            debug && printf("Adding\n");
             addItem( itemLeaf, destinationRank, noRankedItems, soldRanked );
         }
 
-        debug && printf("Very\n");
-        moveEdge( edgeRank, noRankedItems, count, soldRanked );
+        moveBottom( bottom, noRankedItems, soldRanked, count );
     }
-    if(debug)
-    {
-        rank_t *pRank = *firstRank;
-        printf("%d %d\n", *noRankedItems, *soldRanked);
-        while( pRank )
-        {
-            printf( " %ld <-%ld-> %ld %d %d", 
-                    pRank->higher ? pRank->higher - gRank : -1, 
-                    pRank - gRank, 
-                    pRank->lower ? pRank->lower - gRank : -1, 
-                    pRank->sold, pRank->noItems );
-            
-            if(pRank == *firstRank) printf(" first");
-            if(pRank == *edgeRank) printf(" edge");
-            if(pRank == *endRank) printf(" end");
-            printf("\n");
-
-            item_t *itm = pRank->firstItem;
-            while( itm )
-            {
-                char buffer[ MAX_ITEM_LEN ];
-                getString( itm->leaf, buffer);
-                printf("%s:%d ", buffer, itm->leaf->sold);
-                assert( itm->rank == pRank );
-                assert( itm->leaf->reference == itm );
-                itm = itm->next;
-            }
-            printf("\n");
-            pRank = pRank->lower;
-        }
-    }
-
+    if(debug) printDebug(top, noRankedItems, soldRanked);
 
 }
 
@@ -344,8 +331,7 @@ int treeIdx(char c)
     return c - SMALLEST_CHAR;
 }
 
-rank_t *getRank( rank_t *reference, int newSold,
-                  rank_t **firstRank, rank_t **endRank )
+rank_t *getRank( rank_t *reference, int newSold, rank_t **top )
 {
     rank_t *destination = reference;
     while( destination->higher && destination->higher->sold <= newSold )
@@ -353,54 +339,41 @@ rank_t *getRank( rank_t *reference, int newSold,
         destination = destination->higher;
     }
     if( destination->sold == newSold ) return destination;
-    return createRank( destination, newSold, 
-                        firstRank, endRank);
+    return createRank( destination, newSold, top );
 
 }
 
-rank_t *createRank( rank_t *position, int newSold, 
-                     rank_t **firstRank, rank_t **endRank )
+rank_t *createRank( rank_t *position, int newSold, rank_t **top )
 {
-    emptyRank( *endRank );
-    rank_t *newEndRank = (*endRank)->higher;
-    rank_t *twoHigherRank = position->higher;
+    rank_t *lowerRank = position;
+    rank_t *higherRank = position->higher;
+    rank_t *newRank = (rank_t *)calloc( 1, sizeof(*newRank) );
+    if(debug) printf("Creating rank: %d:%p\n",
+        newSold, (void *)newRank);
 
-    (*endRank)->lower = position;
-    (*endRank)->higher = twoHigherRank;
-    (*endRank)->sold = newSold;
+    newRank->higher = higherRank;
+    newRank->lower = lowerRank;
+    newRank->sold = newSold;
 
-    position->higher = *endRank;
-    if( twoHigherRank ) twoHigherRank->lower = *endRank;
-    else *firstRank = *endRank;
+    lowerRank->higher = newRank;
+    if( higherRank ) higherRank->lower = newRank;
+    else *top = newRank;
 
-    *endRank = newEndRank;
-    (*endRank)->lower = NULL;
-    return position->higher;
+    return newRank;
 }
 
-void moveItem( item_t *reference, rank_t *destRank, rank_t **endRank, int *soldRanked )
+void moveItem( item_t *reference, rank_t *destRank, rank_t **bottom, int *soldRanked )
 {
+    if(debug) printf("Moving item %c:%p to %p\n",
+     reference->leaf->letter, (void *)reference, (void*)destRank );
+
     rank_t *sourceRank = reference->rank;
     sourceRank->noItems--;
-    ++*soldRanked;
-
+    if( reference->next ) reference->next->previous = reference->previous;
     if( reference->previous ) reference->previous->next = reference->next;
     else sourceRank->firstItem = reference->next;
-    if( !sourceRank->noItems )
-    {
-        assert( sourceRank->higher );
-        sourceRank->higher->lower = sourceRank->lower;
-        assert( sourceRank->lower );
-        sourceRank->lower->higher = sourceRank->higher;
 
-        sourceRank->higher = *endRank;
-        sourceRank->lower = NULL;
-
-        (*endRank)->lower = sourceRank;
-        *endRank = sourceRank;
-    }
-
-    if( reference->next ) reference->next->previous = reference->previous;
+    if( sourceRank->noItems == 0) deleteRank( sourceRank, bottom );
 
     reference->rank = destRank;
     reference->previous = NULL;
@@ -409,10 +382,30 @@ void moveItem( item_t *reference, rank_t *destRank, rank_t **endRank, int *soldR
     destRank->noItems++;
     if( destRank->firstItem ) destRank->firstItem->previous = reference;
     destRank->firstItem = reference;
+
+    ++*soldRanked;
+}
+
+void deleteRank( rank_t *rank, rank_t **bottom )
+{
+    if(debug) printf( "Deleting %p\n", (void *)rank );
+
+    emptyRank( rank );
+    if( rank->higher ) rank->higher->lower = rank->lower;
+    if( rank->lower ) rank->lower->higher = rank->higher;
+    else
+    {
+        assert( rank == *bottom );
+        *bottom = rank->higher;
+    }
+
+    free( rank );
 }
 
 void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems, int *soldRanked )
 {
+    if(debug) printf("Adding item %c to %p\n", item->letter, (void*)destRank );
+
     item_t *newItem = (item_t *)malloc( sizeof(*newItem) );
     newItem->previous = NULL;
     newItem->next = destRank->firstItem;
@@ -428,14 +421,14 @@ void addItem( leaf_t *item, rank_t *destRank, int *noRankedItems, int *soldRanke
     *soldRanked += item->sold;
 }
 
-void moveEdge( rank_t **edgeRank, int *noRankedItems, int count, int *soldRanked )
+void moveBottom( rank_t **bottom, int *noRankedItems, int *soldRanked, int count )
 {
-//    if( (*edgeRank)->lower && (*edgeRank)->lower->sold == 0 ) *edgeRank = (*edgeRank)->lower;
-    while( *noRankedItems - (*edgeRank)->noItems >= count )
+    while( *noRankedItems - (*bottom)->noItems >= count )
     {
-        *noRankedItems -= (*edgeRank)->noItems;
-        *soldRanked -= (*edgeRank)->noItems * (*edgeRank)->sold;
-        *edgeRank = (*edgeRank)->higher;
+        if(debug) printf("Bottom moved\n");
+        *noRankedItems -= (*bottom)->noItems;
+        *soldRanked -= (*bottom)->noItems * (*bottom)->sold;
+        deleteRank( *bottom, bottom);
     }
 }
 
@@ -457,16 +450,15 @@ void printRank( rank_t *currRank, int rank )
     }
 }
 
-void printRanks( rank_t *firstRank, rank_t *edgeRank )
+void printRanks( rank_t *top, int count )
 {
     int rank = 1;
-    while( firstRank != edgeRank )
+    while( top && rank <= count )
     {
-        printRank( firstRank, rank );
-        rank += firstRank->noItems;
-        firstRank = firstRank->lower;
+        printRank( top, rank );
+        rank += top->noItems;
+        top = top->lower;
     }
-    printRank( firstRank, rank );
 }
 
 void printItemCount( int soldRanked )
@@ -510,10 +502,15 @@ void emptyRank( rank_t *rank )
 
 void emptyList( rank_t *rank )
 {
+    int a = -1, b = -1;
+    if(debug) printDebug( &rank, &a, &b);
+    
     while( rank )
     {
+        rank_t *nextRank = rank->lower;
         emptyRank( rank );
-        rank = rank->lower;
+        free( rank );
+        rank = nextRank;
     }
 }
 
