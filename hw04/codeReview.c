@@ -4,45 +4,66 @@
 #define MAX_ID 100000
 #define MAX_QUERY 1000000
 
-int add( int id, int *list, int *changes, int count );
-int query( int from, int to, int *changes );
+/**
+ * @brief Add's new ID record
+ * 
+ * @param visits[out] list of IDs in order
+ * @param idCount[in,out] count of each ID
+ * @param id[in] new ID
+ * @param visitCount[in] count of made visits
+ * @return int count of ID visits
+ */
+int add( int *visits, int *idCount, int id, int visitCount );
+
+/**
+ * @brief Calculates unique ID on interval
+ * 
+ * @param visits[in] list of IDs in order
+ * @param from[in] interval start
+ * @param to[in] interval end
+ * @return int unique ID on [from, to]
+ */
+int query( int *visits, int from, int to );
 
 int main()
 {
-    int visit_count[ MAX_ID ] = {0};
-    int change_list[ MAX_QUERY ];
-    printf( "Pozadavky:\n" );
+    int idCount[ MAX_ID ] = {0};
+    int visits[ MAX_QUERY ];
+    int visitCount = 0;
     char operation, space, cariage_return;
-    int new_id, ret, from, to, count = 0;
+    printf( "Pozadavky:\n" );
     while( scanf( "%c ", &operation ) != EOF )
     {
+        int newID, from, to, repetition;
         switch( operation )
         {
         case '+':
-            if( scanf( "%d%c", &new_id, &cariage_return ) != 2 || cariage_return != '\n' || 
-                new_id < 0 || new_id >= MAX_ID || count == MAX_QUERY )
+            if( scanf( "%d%c", &newID, &cariage_return ) != 2 || cariage_return != '\n' ||
+                 newID < 0 || newID >= MAX_ID || visitCount == MAX_QUERY )
             {
                 printf( "Nespravny vstup.\n" );
                 return 0;
             }
 
-            ret = add( new_id, visit_count , change_list, count);
-            count++;
+            repetition = add( visits, idCount, newID , visitCount);
+            visitCount++;
 
-            if( ret == 1 ) printf( "> prvni navsteva\n" );
-            else printf( "> navsteva #%d\n", ret );
+            if( repetition == 1 ) printf( "> prvni navsteva\n" );
+            else printf( "> navsteva #%d\n", repetition );
 
             break;
 
         case '?':
-            if( scanf( "%d%c%d%c", &from, &space, &to, &operation ) != 4 || operation != '\n' || space != ' ' ||
-                from < 0 || to >= count || to < from )
+            if( scanf( "%d%c%d%c", &from, &space, &to, &cariage_return ) != 4 ||
+                 cariage_return != '\n' || space != ' ' ||
+                 from < 0 || to >= visitCount || to < from )
             {
                 printf( "Nespravny vstup.\n" );
                 return 0;
             }
-            ret = query( from, to, change_list );
-            printf( "> %d / %d\n", ret, to - from + 1 );
+
+            repetition = query( visits, from, to );
+            printf( "> %d / %d\n", repetition, to - from + 1 );
             break;
 
         default:
@@ -53,31 +74,26 @@ int main()
     return 0;
 }
 
-int add( int id, int *list, int *changes, int count)
+int add( int *visits, int *idCount, int id, int visitCount )
 {
-    list[id]++;
-    changes[count] = id;
-    return list[id];
+    idCount[id]++;
+    visits[visitCount] = id;
+    return idCount[id];
 }
 
-int query(int from, int to, int *changes)
+int query( int *visits, int from, int to )
 {
-    static int used[MAX_ID] = {0};
+    int visited[MAX_ID] = {0};
 
     int id_count = 0;
-    for(int i = from; i <= to; i++)
+    for( int time = from; time <= to; time++ )
     {
-        int id = changes[i];
-        if(!used[id])
+        int id = visits[ time ];
+        if( !visited[id] )
         {
-            used[id] = 1;
+            visited[id] = 1;
             id_count++;
         }
-    }
-    for(int i = from; i <= to; i++)
-    {
-        int id = changes[i];
-        used[id] = 0;
     }
     
     return id_count;

@@ -4,6 +4,6 @@ FLAGS="-y --suppress-common-lines"
 for NUM in {0000..0005}
 do
     echo CZE/${NUM}_out.txt
-    ./best <CZE/${NUM}_in.txt >CZE/${NUM}_out.sq.txt
+    ./codeReview <CZE/${NUM}_in.txt >CZE/${NUM}_out.sq.txt
     diff CZE/${NUM}_out.txt CZE/${NUM}_out.sq.txt $FLAGS
 done
