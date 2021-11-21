@@ -4,7 +4,7 @@ flags="-y --text"
 
 DIR="CZE"
 
-for file in {0000..0004}
+for file in {0000..0006}
 do
     ./main <CZE/${file}_in.txt >CZE/${file}_out.st.txt
     echo $file
