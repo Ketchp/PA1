@@ -50,12 +50,18 @@ int parseLine( char *operation, int *inWordChar, char **text )
     *newText = '\0';
     char *trail = (char *)malloc( strlen( tmpText ) * sizeof( *trail ) );
     *trail = '\0';
+    char open, close;
 
-    parsed = sscanf( tmpText, " \"%[^\"]\"%[^.]", newText, trail );
-    free( tmpText );
-    if( parsed < 1 || !isEmpty( trail ) )
+    parsed = sscanf( tmpText, " %c%[^\"]%c%[^.]", &open, newText, &close, trail );
+    if( parsed == 1 && open == '"' )
     {
-//        printf( "%s:%s:%d\n", newText, trail, parsed );
+        parsed = sscanf( tmpText, " %c%c%[^.]", &open, &close, trail );
+    }
+//    printf(".%s.", tmpText);
+    free( tmpText );
+    if( parsed < 3 || !isEmpty( trail ) || open != '"' || close != '"' )
+    {
+//        printf( "%s:%s:%d:%c:%c\n", newText, trail, parsed, open, close );
         free( trail );
         free(newText);
         return 0;
