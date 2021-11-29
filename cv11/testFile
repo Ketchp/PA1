@@ -6,7 +6,10 @@ DIR="CZE"
 
 for file in {0000..0003}
 do
-    ./main <CZE/${file}_in.txt >CZE/${file}_out.st.txt
+    ./main <CZE/${file}_in.txt | sort >CZE/${file}_out.st.txt
+    cat CZE/${file}_out.txt | sort >tmpFile
     echo $file
-    diff CZE/${file}_out.txt CZE/${file}_out.st.txt $flags
+    diff tmpFile CZE/${file}_out.st.txt $flags
 done
+
+rm tmpFile
