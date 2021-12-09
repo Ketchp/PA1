@@ -1,0 +1,201 @@
+Pozadavky:
+> prvni navsteva
+> 1 / 1
+> navsteva #2
+> 1 / 1
+> prvni navsteva
+> 1 / 1
+> prvni navsteva
+> 2 / 2
+> prvni navsteva
+> 2 / 2
+> navsteva #2
+> 1 / 2
+> prvni navsteva
+> 1 / 1
+> prvni navsteva
+> 1 / 1
+> navsteva #2
+> 4 / 5
+> prvni navsteva
+> 5 / 5
+> prvni navsteva
+> 4 / 4
+> navsteva #2
+> 2 / 3
+> navsteva #3
+> 4 / 6
+> navsteva #2
+> 2 / 2
+> prvni navsteva
+> 3 / 4
+> navsteva #3
+> 7 / 11
+> navsteva #3
+> 3 / 3
+> navsteva #4
+> 1 / 1
+> navsteva #2
+> 2 / 3
+> navsteva #2
+> 8 / 9
+> navsteva #2
+> 1 / 1
+> navsteva #4
+> 4 / 5
+> navsteva #5
+> 4 / 4
+> navsteva #4
+> 7 / 9
+> navsteva #2
+> 4 / 5
+> navsteva #3
+> 3 / 3
+> navsteva #6
+> 9 / 19
+> prvni navsteva
+> 5 / 6
+> navsteva #3
+> 1 / 1
+> navsteva #7
+> 2 / 2
+> navsteva #3
+> 4 / 5
+> navsteva #5
+> 4 / 5
+> navsteva #5
+> 10 / 20
+> navsteva #4
+> 1 / 1
+> navsteva #4
+> 7 / 10
+> navsteva #3
+> 1 / 1
+> navsteva #5
+> 5 / 5
+> navsteva #3
+> 10 / 25
+> navsteva #3
+> 3 / 4
+> navsteva #4
+> 6 / 7
+> navsteva #6
+> 2 / 2
+> navsteva #4
+> 2 / 2
+> navsteva #6
+> 10 / 38
+> navsteva #2
+> 4 / 4
+> navsteva #5
+> 7 / 11
+> navsteva #3
+> 10 / 37
+> navsteva #6
+> 10 / 38
+> navsteva #5
+> 10 / 22
+> navsteva #7
+> 10 / 38
+> navsteva #4
+> 9 / 11
+> navsteva #8
+> 1 / 1
+> navsteva #8
+> 10 / 40
+> navsteva #9
+> 2 / 2
+> navsteva #5
+> 10 / 24
+> navsteva #4
+> 2 / 2
+> navsteva #4
+> 9 / 18
+> navsteva #7
+> 10 / 16
+> navsteva #10
+> 6 / 8
+> navsteva #11
+> 1 / 2
+> navsteva #5
+> 5 / 6
+> navsteva #6
+> 9 / 15
+> navsteva #6
+> 9 / 12
+> navsteva #5
+> 3 / 4
+> navsteva #6
+> 8 / 15
+> navsteva #12
+> 3 / 3
+> navsteva #6
+> 5 / 7
+> navsteva #5
+> 9 / 23
+> navsteva #7
+> 5 / 6
+> navsteva #6
+> 2 / 2
+> navsteva #7
+> 3 / 4
+> navsteva #6
+> 10 / 27
+> navsteva #7
+> 2 / 2
+> navsteva #13
+> 10 / 54
+> navsteva #8
+> 10 / 50
+> navsteva #14
+> 10 / 44
+> navsteva #7
+> 10 / 20
+> navsteva #15
+> 4 / 4
+> navsteva #8
+> 1 / 1
+> navsteva #7
+> 1 / 1
+> navsteva #16
+> 3 / 3
+> navsteva #9
+> 7 / 14
+> navsteva #8
+> 6 / 10
+> navsteva #9
+> 6 / 11
+> navsteva #8
+> 2 / 2
+> navsteva #9
+> 8 / 12
+> navsteva #7
+> 10 / 43
+> navsteva #9
+> 5 / 7
+> navsteva #7
+> 8 / 12
+> navsteva #8
+> 10 / 64
+> navsteva #10
+> 10 / 42
+> navsteva #9
+> 5 / 7
+> navsteva #9
+> 7 / 10
+> navsteva #10
+> 2 / 4
+> navsteva #8
+> 1 / 1
+> navsteva #10
+> 4 / 4
+> navsteva #9
+> 9 / 24
+> navsteva #10
+> 10 / 35
+> navsteva #8
+> 4 / 6
+> navsteva #11
+> 9 / 26
+> navsteva #11
+> 10 / 53
