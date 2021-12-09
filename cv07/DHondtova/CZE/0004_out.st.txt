@@ -1,0 +1,3 @@
+Pocet stran:
+Strany a pocet hlasu:
+Nespravny vstup.

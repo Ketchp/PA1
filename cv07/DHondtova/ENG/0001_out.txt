@@ -1,0 +1,7 @@
+Number of parties:
+Parties and votes:
+Number of miners:
+Assigned positions:
+A: 2
+B: 1
+C: 0

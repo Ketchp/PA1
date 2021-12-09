@@ -1,0 +1,7 @@
+Pocet stran:
+Strany a pocet hlasu:
+Pocet horniku:
+Pridelene pocty:
+A: 2
+B: 1
+C: 0

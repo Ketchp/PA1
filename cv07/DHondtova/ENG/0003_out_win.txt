@@ -1,0 +1,4 @@
+Number of parties:
+Parties and votes:
+Number of miners:
+No solution.

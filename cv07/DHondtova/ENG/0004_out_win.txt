@@ -1,0 +1,3 @@
+Number of parties:
+Parties and votes:
+Invalid input.
