@@ -1,0 +1,6 @@
+#!/bin/bash
+for NUM in {0000..0006}
+do
+    ./main <ENG/${NUM}_in.txt >ENG/${NUM}_out.st.txt
+    diff ENG/${NUM}_out.txt ENG/${NUM}_out.st.txt
+done

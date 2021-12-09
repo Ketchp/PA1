@@ -1,0 +1,2 @@
+Enter an equation:
+The equation holds.
