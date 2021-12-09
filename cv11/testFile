@@ -1,0 +1,12 @@
+#!/bin/bash
+
+flags="-y --text --suppress-common-lines"
+
+DIR="CZE"
+
+for file in {0000..0003}
+do
+    ./main <CZE/${file}_in.txt >CZE/${file}_out.st.txt
+    echo $file
+    diff CZE/${file}_out.txt CZE/${file}_out.st.txt $flags
+done
