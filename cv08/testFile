@@ -1,0 +1,10 @@
+#!/bin/bash
+FLAGS="-y --suppress-common-lines --text"
+
+SAMPLE=CZE
+for NUM in {0000..0003}
+do
+    echo $SAMPLE/${NUM}_out.txt
+    ./main <$SAMPLE/${NUM}_in.txt >$SAMPLE/${NUM}_out.st.txt
+    diff $SAMPLE/${NUM}_out.txt $SAMPLE/${NUM}_out.st.txt $FLAGS
+done
