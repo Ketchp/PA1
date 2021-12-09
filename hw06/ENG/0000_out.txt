@@ -1,0 +1,2 @@
+Puzzle:
+All words are unique.

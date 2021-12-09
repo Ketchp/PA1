@@ -1,0 +1,9 @@
+Puzzle:
+Longest repeating words:
+atse
+esta
+rest
+test
+tser
+tset
+tttt

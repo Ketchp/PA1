@@ -1,0 +1,7 @@
+Puzzle:
+Longest repeating words:
+aaaaa
+aaaak
+aayaa
+kaaaa
+kayak
