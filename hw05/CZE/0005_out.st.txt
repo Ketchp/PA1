@@ -1,0 +1,946 @@
+Pocet sledovanych:
+Pozadavky:
+leaf found: BNPJ
+Get 0 1
+->5
+Adding
+Very
+1 1
+ -1 <-5-> 0 1 1 first
+BNPJ:1 
+ 5 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 4 0 0
+
+ 3 <-4-> -1 0 0 end
+
+1. BNPJ, 1x
+Nejprodavanejsi zbozi: prodano 1 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536f0
+Get 5 2
+->4
+Moving to: 2 0
+Very
+1 2
+ -1 <-4-> 0 2 1 first
+BNPJ:2 
+ 4 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 5 0 0
+
+ 3 <-5-> -1 1 0 end
+
+1. BNPJ, 2x
+Nejprodavanejsi zbozi: prodano 2 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536d0
+Get 4 3
+->5
+Moving to: 3 0
+Very
+1 3
+ -1 <-5-> 0 3 1 first
+BNPJ:3 
+ 5 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 4 0 0
+
+ 3 <-4-> -1 2 0 end
+
+1. BNPJ, 3x
+Nejprodavanejsi zbozi: prodano 3 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536f0
+Get 5 4
+->4
+Moving to: 4 0
+Very
+1 4
+ -1 <-4-> 0 4 1 first
+BNPJ:4 
+ 4 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 5 0 0
+
+ 3 <-5-> -1 3 0 end
+
+1. BNPJ, 4x
+Nejprodavanejsi zbozi: prodano 4 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536d0
+Get 4 5
+->5
+Moving to: 5 0
+Very
+1 5
+ -1 <-5-> 0 5 1 first
+BNPJ:5 
+ 5 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 4 0 0
+
+ 3 <-4-> -1 4 0 end
+
+1. BNPJ, 5x
+Nejprodavanejsi zbozi: prodano 5 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536f0
+Get 5 6
+->4
+Moving to: 6 0
+Very
+1 6
+ -1 <-4-> 0 6 1 first
+BNPJ:6 
+ 4 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 5 0 0
+
+ 3 <-5-> -1 5 0 end
+
+1. BNPJ, 6x
+Nejprodavanejsi zbozi: prodano 6 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536d0
+Get 4 7
+->5
+Moving to: 7 0
+Very
+1 7
+ -1 <-5-> 0 7 1 first
+BNPJ:7 
+ 5 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 4 0 0
+
+ 3 <-4-> -1 6 0 end
+
+1. BNPJ, 7x
+Nejprodavanejsi zbozi: prodano 7 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536f0
+Get 5 8
+->4
+Moving to: 8 0
+Very
+1 8
+ -1 <-4-> 0 8 1 first
+BNPJ:8 
+ 4 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 5 0 0
+
+ 3 <-5-> -1 7 0 end
+
+1. BNPJ, 8x
+Nejprodavanejsi zbozi: prodano 8 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536d0
+Get 4 9
+->5
+Moving to: 9 0
+Very
+1 9
+ -1 <-5-> 0 9 1 first
+BNPJ:9 
+ 5 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 4 0 0
+
+ 3 <-4-> -1 8 0 end
+
+1. BNPJ, 9x
+Nejprodavanejsi zbozi: prodano 9 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536f0
+Get 5 10
+->4
+Moving to: 10 0
+Very
+1 10
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> 5 0 0
+
+ 3 <-5-> -1 9 0 end
+
+1. BNPJ, 10x
+Nejprodavanejsi zbozi: prodano 10 kusu
+leaf found: ECHFS
+Get 0 1
+->5
+Adding
+Very
+2 11
+ -1 <-4-> 5 10 1 first
+BNPJ:10 
+ 4 <-5-> 0 1 1
+ECHFS:1 
+ 5 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 3 0 0
+
+ 2 <-3-> -1 0 0 end
+
+1. BNPJ, 10x
+2. ECHFS, 1x
+Nejprodavanejsi zbozi: prodano 11 kusu
+leaf found: ECHFS
+ref:0x55b3304552e0
+next:(nil)
+prev:(nil)
+leaf:0x55b330454fd0
+rank:0x55b3304536f0
+Get 5 2
+->3
+Moving to: 2 0
+Very
+2 12
+ -1 <-4-> 3 10 1 first
+BNPJ:10 
+ 4 <-3-> 0 2 1
+ECHFS:2 
+ 3 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> 5 0 0
+
+ 2 <-5-> -1 1 0 end
+
+1. BNPJ, 10x
+2. ECHFS, 2x
+Nejprodavanejsi zbozi: prodano 12 kusu
+leaf found: LCIKV
+Get 0 1
+->5
+Adding
+Very
+3 13
+ -1 <-4-> 3 10 1 first
+BNPJ:10 
+ 4 <-3-> 5 2 1
+ECHFS:2 
+ 3 <-5-> 0 1 1
+LCIKV:1 
+ 5 <-0-> 1 0 0 edge
+
+ 0 <-1-> 2 0 0
+
+ 1 <-2-> -1 0 0 end
+
+1. BNPJ, 10x
+2. ECHFS, 2x
+3. LCIKV, 1x
+Nejprodavanejsi zbozi: prodano 13 kusu
+leaf found: ECHFS
+ref:0x55b3304552e0
+next:(nil)
+prev:(nil)
+leaf:0x55b330454fd0
+rank:0x55b3304536b0
+Get 3 3
+->2
+Moving to: 3 0
+Very
+3 14
+ -1 <-4-> 2 10 1 first
+BNPJ:10 
+ 4 <-2-> 5 3 1
+ECHFS:3 
+ 2 <-5-> 0 1 1
+LCIKV:1 
+ 5 <-0-> 1 0 0 edge
+
+ 0 <-1-> 3 0 0
+
+ 1 <-3-> -1 2 0 end
+
+1. BNPJ, 10x
+2. ECHFS, 3x
+3. LCIKV, 1x
+Nejprodavanejsi zbozi: prodano 14 kusu
+leaf found: LCIKV
+ref:0x55b330456260
+next:(nil)
+prev:(nil)
+leaf:0x55b330455f50
+rank:0x55b3304536f0
+Get 5 2
+->3
+Moving to: 2 0
+Very
+3 15
+ -1 <-4-> 2 10 1 first
+BNPJ:10 
+ 4 <-2-> 3 3 1
+ECHFS:3 
+ 2 <-3-> 0 2 1
+LCIKV:2 
+ 3 <-0-> 1 0 0 edge
+
+ 0 <-1-> 5 0 0
+
+ 1 <-5-> -1 1 0 end
+
+1. BNPJ, 10x
+2. ECHFS, 3x
+3. LCIKV, 2x
+Nejprodavanejsi zbozi: prodano 15 kusu
+leaf found: LCIKV
+ref:0x55b330456260
+next:(nil)
+prev:(nil)
+leaf:0x55b330455f50
+rank:0x55b3304536b0
+Get 3 3
+->2
+Moving to: 3 1
+Very
+3 16
+ -1 <-4-> 2 10 1 first
+BNPJ:10 
+ 4 <-2-> 0 3 2
+LCIKV:3 ECHFS:3 
+ 2 <-0-> 1 0 0 edge
+
+ 0 <-1-> 5 0 0
+
+ 1 <-5-> 3 1 0
+
+ 5 <-3-> -1 2 0 end
+
+1. BNPJ, 10x
+2.-3. LCIKV, 3x
+2.-3. ECHFS, 3x
+Nejprodavanejsi zbozi: prodano 16 kusu
+leaf found: ECHFS
+ref:0x55b3304552e0
+next:(nil)
+prev:0x55b330456260
+leaf:0x55b330454fd0
+rank:0x55b330453690
+Get 2 4
+->3
+Moving to: 4 0
+Very
+3 17
+ -1 <-4-> 3 10 1 first
+BNPJ:10 
+ 4 <-3-> 2 4 1
+ECHFS:4 
+ 3 <-2-> 0 3 1
+LCIKV:3 
+ 2 <-0-> 1 0 0 edge
+
+ 0 <-1-> 5 0 0
+
+ 1 <-5-> -1 1 0 end
+
+1. BNPJ, 10x
+2. ECHFS, 4x
+3. LCIKV, 3x
+Nejprodavanejsi zbozi: prodano 17 kusu
+leaf found: LCIKV
+ref:0x55b330456260
+next:(nil)
+prev:(nil)
+leaf:0x55b330455f50
+rank:0x55b330453690
+Get 2 4
+->3
+Moving to: 4 1
+Very
+3 18
+ -1 <-4-> 3 10 1 first
+BNPJ:10 
+ 4 <-3-> 0 4 2
+LCIKV:4 ECHFS:4 
+ 3 <-0-> 1 0 0 edge
+
+ 0 <-1-> 5 0 0
+
+ 1 <-5-> 2 1 0
+
+ 5 <-2-> -1 3 0 end
+
+1. BNPJ, 10x
+2.-3. LCIKV, 4x
+2.-3. ECHFS, 4x
+Nejprodavanejsi zbozi: prodano 18 kusu
+leaf found: EY
+Get 0 1
+->2
+Adding
+Very
+4 19
+ -1 <-4-> 3 10 1 first
+BNPJ:10 
+ 4 <-3-> 2 4 2
+LCIKV:4 ECHFS:4 
+ 3 <-2-> 0 1 1
+EY:1 
+ 2 <-0-> 1 0 0 edge
+
+ 0 <-1-> 5 0 0
+
+ 1 <-5-> -1 1 0 end
+
+1. BNPJ, 10x
+2.-3. LCIKV, 4x
+2.-3. ECHFS, 4x
+4. EY, 1x
+Nejprodavanejsi zbozi: prodano 19 kusu
+leaf found: YXV
+Get 0 1
+->2
+Adding
+Very
+5 20
+ -1 <-4-> 3 10 1 first
+BNPJ:10 
+ 4 <-3-> 2 4 2
+LCIKV:4 ECHFS:4 
+ 3 <-2-> 0 1 2 edge
+YXV:1 EY:1 
+ 2 <-0-> 1 0 0
+
+ 0 <-1-> 5 0 0
+
+ 1 <-5-> -1 1 0 end
+
+1. BNPJ, 10x
+2.-3. LCIKV, 4x
+2.-3. ECHFS, 4x
+4.-5. YXV, 1x
+4.-5. EY, 1x
+Nejprodavanejsi zbozi: prodano 20 kusu
+leaf found: XUY
+Get 2 1
+->2
+Adding
+Very
+6 21
+ -1 <-4-> 3 10 1 first
+BNPJ:10 
+ 4 <-3-> 2 4 2
+LCIKV:4 ECHFS:4 
+ 3 <-2-> 0 1 3 edge
+XUY:1 YXV:1 EY:1 
+ 2 <-0-> 1 0 0
+
+ 0 <-1-> 5 0 0
+
+ 1 <-5-> -1 1 0 end
+
+1. BNPJ, 10x
+2.-3. LCIKV, 4x
+2.-3. ECHFS, 4x
+4.-6. XUY, 1x
+4.-6. YXV, 1x
+4.-6. EY, 1x
+Nejprodavanejsi zbozi: prodano 21 kusu
+leaf found: YXV
+ref:0x55b330456f00
+next:0x55b3304565a0
+prev:0x55b330457860
+leaf:0x55b330456bf0
+rank:0x55b330453690
+Get 2 2
+->5
+Moving to: 2 0
+Very
+6 22
+ -1 <-4-> 3 10 1 first
+BNPJ:10 
+ 4 <-3-> 5 4 2
+LCIKV:4 ECHFS:4 
+ 3 <-5-> 2 2 1
+YXV:2 
+ 5 <-2-> 0 1 2 edge
+XUY:1 EY:1 
+ 2 <-0-> 1 0 0
+
+ 0 <-1-> -1 0 0 end
+
+1. BNPJ, 10x
+2.-3. LCIKV, 4x
+2.-3. ECHFS, 4x
+4. YXV, 2x
+5.-6. XUY, 1x
+5.-6. EY, 1x
+Nejprodavanejsi zbozi: prodano 22 kusu
+leaf found: LCIKV
+ref:0x55b330456260
+next:0x55b3304552e0
+prev:(nil)
+leaf:0x55b330455f50
+rank:0x55b3304536b0
+Get 3 5
+->1
+Moving to: 5 0
+Very
+6 23
+ -1 <-4-> 1 10 1 first
+BNPJ:10 
+ 4 <-1-> 3 5 1
+LCIKV:5 
+ 1 <-3-> 5 4 1
+ECHFS:4 
+ 3 <-5-> 2 2 1
+YXV:2 
+ 5 <-2-> 0 1 2 edge
+XUY:1 EY:1 
+ 2 <-0-> -1 0 0 end
+
+1. BNPJ, 10x
+2. LCIKV, 5x
+3. ECHFS, 4x
+4. YXV, 2x
+5.-6. XUY, 1x
+5.-6. EY, 1x
+Nejprodavanejsi zbozi: prodano 23 kusu
+leaf found: LCIKV
+ref:0x55b330456260
+next:(nil)
+prev:(nil)
+leaf:0x55b330455f50
+rank:0x55b330453670
+Get 1 6
+->0
+Moving to: 6 0
+Very
+6 24
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 3 6 1
+LCIKV:6 
+ 0 <-3-> 5 4 1
+ECHFS:4 
+ 3 <-5-> 2 2 1
+YXV:2 
+ 5 <-2-> 1 1 2 edge
+XUY:1 EY:1 
+ 2 <-1-> -1 5 0 end
+
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 4x
+4. YXV, 2x
+5.-6. XUY, 1x
+5.-6. EY, 1x
+Nejprodavanejsi zbozi: prodano 24 kusu
+leaf found: ECHFS
+ref:0x55b3304552e0
+next:(nil)
+prev:(nil)
+leaf:0x55b330454fd0
+rank:0x55b3304536b0
+Get 3 5
+->1
+Moving to: 5 0
+Very
+6 25
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 5 5 1
+ECHFS:5 
+ 1 <-5-> 2 2 1
+YXV:2 
+ 5 <-2-> 3 1 2 edge
+XUY:1 EY:1 
+ 2 <-3-> -1 4 0 end
+
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. YXV, 2x
+5.-6. XUY, 1x
+5.-6. EY, 1x
+Nejprodavanejsi zbozi: prodano 25 kusu
+leaf found: XUY
+ref:0x55b330457860
+next:0x55b3304565a0
+prev:(nil)
+leaf:0x55b330457550
+rank:0x55b330453690
+Get 2 2
+->5
+Moving to: 2 1
+Very
+5 25
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 5 5 1
+ECHFS:5 
+ 1 <-5-> 2 2 2 edge
+XUY:2 YXV:2 
+ 5 <-2-> 3 1 1
+EY:1 
+ 2 <-3-> -1 4 0 end
+
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4.-5. XUY, 2x
+4.-5. YXV, 2x
+Nejprodavanejsi zbozi: prodano 25 kusu
+leaf found: GNB
+5 25
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 5 5 1
+ECHFS:5 
+ 1 <-5-> 2 2 2 edge
+XUY:2 YXV:2 
+ 5 <-2-> 3 1 1
+EY:1 
+ 2 <-3-> -1 4 0 end
+
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4.-5. XUY, 2x
+4.-5. YXV, 2x
+Nejprodavanejsi zbozi: prodano 25 kusu
+leaf found: PEXV
+5 25
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 5 5 1
+ECHFS:5 
+ 1 <-5-> 2 2 2 edge
+XUY:2 YXV:2 
+ 5 <-2-> 3 1 1
+EY:1 
+ 2 <-3-> -1 4 0 end
+
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4.-5. XUY, 2x
+4.-5. YXV, 2x
+Nejprodavanejsi zbozi: prodano 25 kusu
+leaf found: XUY
+ref:0x55b330457860
+next:0x55b330456f00
+prev:(nil)
+leaf:0x55b330457550
+rank:0x55b3304536f0
+Get 5 3
+->3
+Moving to: 3 0
+Very
+5 26
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 3 5 1
+ECHFS:5 
+ 1 <-3-> 5 3 1
+XUY:3 
+ 3 <-5-> 2 2 1 edge
+YXV:2 
+ 5 <-2-> -1 1 1 end
+EY:1 
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 3x
+5. YXV, 2x
+Nejprodavanejsi zbozi: prodano 26 kusu
+leaf found: J
+5 26
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 3 5 1
+ECHFS:5 
+ 1 <-3-> 5 3 1
+XUY:3 
+ 3 <-5-> 2 2 1 edge
+YXV:2 
+ 5 <-2-> -1 1 1 end
+EY:1 
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 3x
+5. YXV, 2x
+Nejprodavanejsi zbozi: prodano 26 kusu
+leaf found: J
+Get 5 2
+->5
+Adding
+Very
+6 28
+ -1 <-4-> 0 10 1 first
+BNPJ:10 
+ 4 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 3 5 1
+ECHFS:5 
+ 1 <-3-> 5 3 1
+XUY:3 
+ 3 <-5-> 2 2 2 edge
+J:2 YXV:2 
+ 5 <-2-> -1 1 1 end
+EY:1 
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 3x
+5.-6. J, 2x
+5.-6. YXV, 2x
+Nejprodavanejsi zbozi: prodano 28 kusu
+leaf found: BNPJ
+ref:0x55b330454360
+next:(nil)
+prev:(nil)
+leaf:0x55b330454050
+rank:0x55b3304536d0
+Get 4 11
+->2
+Moving to: 11 0
+Very
+6 29
+ -1 <-2-> 0 11 1 first
+BNPJ:11 
+ 2 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 3 5 1
+ECHFS:5 
+ 1 <-3-> 5 3 1
+XUY:3 
+ 3 <-5-> 4 2 2 edge
+J:2 YXV:2 
+ 5 <-4-> -1 10 0 end
+
+1. BNPJ, 11x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 3x
+5.-6. J, 2x
+5.-6. YXV, 2x
+Nejprodavanejsi zbozi: prodano 29 kusu
+leaf found: XUY
+ref:0x55b330457860
+next:(nil)
+prev:(nil)
+leaf:0x55b330457550
+rank:0x55b3304536b0
+Get 3 4
+->4
+Moving to: 4 0
+Very
+6 30
+ -1 <-2-> 0 11 1 first
+BNPJ:11 
+ 2 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 4 5 1
+ECHFS:5 
+ 1 <-4-> 5 4 1
+XUY:4 
+ 4 <-5-> 3 2 2 edge
+J:2 YXV:2 
+ 5 <-3-> -1 3 0 end
+
+1. BNPJ, 11x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 4x
+5.-6. J, 2x
+5.-6. YXV, 2x
+Nejprodavanejsi zbozi: prodano 30 kusu
+leaf found: J
+ref:0x55b330459110
+next:0x55b330456f00
+prev:(nil)
+leaf:0x55b330458e00
+rank:0x55b3304536f0
+Get 5 3
+->3
+Moving to: 3 0
+Very
+5 29
+ -1 <-2-> 0 11 1 first
+BNPJ:11 
+ 2 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 4 5 1
+ECHFS:5 
+ 1 <-4-> 3 4 1
+XUY:4 
+ 4 <-3-> 5 3 1 edge
+J:3 
+ 3 <-5-> -1 2 1 end
+YXV:2 
+1. BNPJ, 11x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 4x
+5. J, 3x
+Nejprodavanejsi zbozi: prodano 29 kusu
+leaf found: XUY
+ref:0x55b330457860
+next:(nil)
+prev:(nil)
+leaf:0x55b330457550
+rank:0x55b3304536d0
+Get 4 5
+->1
+Moving to: 5 1
+Very
+5 30
+ -1 <-2-> 0 11 1 first
+BNPJ:11 
+ 2 <-0-> 1 6 1
+LCIKV:6 
+ 0 <-1-> 3 5 2
+XUY:5 ECHFS:5 
+ 1 <-3-> 5 3 1 edge
+J:3 
+ 3 <-5-> 4 2 1
+YXV:2 
+ 5 <-4-> -1 4 0 end
+
+1. BNPJ, 11x
+2. LCIKV, 6x
+3.-4. XUY, 5x
+3.-4. ECHFS, 5x
+5. J, 3x
+Nejprodavanejsi zbozi: prodano 30 kusu
+leaf found: XUY
+ref:0x55b330457860
+next:0x55b3304552e0
+prev:(nil)
+leaf:0x55b330457550
+rank:0x55b330453670
+Get 1 6
+->0
+Moving to: 6 1
+Very
+5 31
+ -1 <-2-> 0 11 1 first
+BNPJ:11 
+ 2 <-0-> 1 6 2
+XUY:6 LCIKV:6 
+ 0 <-1-> 3 5 1
+ECHFS:5 
+ 1 <-3-> 5 3 1 edge
+J:3 
+ 3 <-5-> 4 2 1
+YXV:2 
+ 5 <-4-> -1 4 0 end
+
+1. BNPJ, 11x
+2.-3. XUY, 6x
+2.-3. LCIKV, 6x
+4. ECHFS, 5x
+5. J, 3x
+Nejprodavanejsi zbozi: prodano 31 kusu
+leaf found: YXV
+ref:0x55b330456f00
+next:(nil)
+prev:(nil)
+leaf:0x55b330456bf0
+rank:0x55b3304536f0
+Get 5 3
+->3
+Moving to: 3 1
+Very
+5 32
+ -1 <-2-> 0 11 1 first
+BN

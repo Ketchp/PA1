@@ -1,0 +1,257 @@
+Pocet sledovanych:
+Pozadavky:
+1. BNPJ, 1x
+Nejprodavanejsi zbozi: prodano 1 kusu
+1. BNPJ, 2x
+Nejprodavanejsi zbozi: prodano 2 kusu
+1. BNPJ, 3x
+Nejprodavanejsi zbozi: prodano 3 kusu
+1. BNPJ, 4x
+Nejprodavanejsi zbozi: prodano 4 kusu
+1. BNPJ, 5x
+Nejprodavanejsi zbozi: prodano 5 kusu
+1. BNPJ, 6x
+Nejprodavanejsi zbozi: prodano 6 kusu
+1. BNPJ, 7x
+Nejprodavanejsi zbozi: prodano 7 kusu
+1. BNPJ, 8x
+Nejprodavanejsi zbozi: prodano 8 kusu
+1. BNPJ, 9x
+Nejprodavanejsi zbozi: prodano 9 kusu
+1. BNPJ, 10x
+Nejprodavanejsi zbozi: prodano 10 kusu
+1. BNPJ, 10x
+2. ECHFS, 1x
+Nejprodavanejsi zbozi: prodano 11 kusu
+1. BNPJ, 10x
+2. ECHFS, 2x
+Nejprodavanejsi zbozi: prodano 12 kusu
+1. BNPJ, 10x
+2. ECHFS, 2x
+3. LCIKV, 1x
+Nejprodavanejsi zbozi: prodano 13 kusu
+1. BNPJ, 10x
+2. ECHFS, 3x
+3. LCIKV, 1x
+Nejprodavanejsi zbozi: prodano 14 kusu
+1. BNPJ, 10x
+2. ECHFS, 3x
+3. LCIKV, 2x
+Nejprodavanejsi zbozi: prodano 15 kusu
+1. BNPJ, 10x
+2.-3. ECHFS, 3x
+2.-3. LCIKV, 3x
+Nejprodavanejsi zbozi: prodano 16 kusu
+1. BNPJ, 10x
+2. ECHFS, 4x
+3. LCIKV, 3x
+Nejprodavanejsi zbozi: prodano 17 kusu
+1. BNPJ, 10x
+2.-3. ECHFS, 4x
+2.-3. LCIKV, 4x
+Nejprodavanejsi zbozi: prodano 18 kusu
+1. BNPJ, 10x
+2.-3. ECHFS, 4x
+2.-3. LCIKV, 4x
+4. EY, 1x
+Nejprodavanejsi zbozi: prodano 19 kusu
+1. BNPJ, 10x
+2.-3. ECHFS, 4x
+2.-3. LCIKV, 4x
+4.-5. EY, 1x
+4.-5. YXV, 1x
+Nejprodavanejsi zbozi: prodano 20 kusu
+1. BNPJ, 10x
+2.-3. ECHFS, 4x
+2.-3. LCIKV, 4x
+4.-6. EY, 1x
+4.-6. YXV, 1x
+4.-6. XUY, 1x
+Nejprodavanejsi zbozi: prodano 21 kusu
+1. BNPJ, 10x
+2.-3. ECHFS, 4x
+2.-3. LCIKV, 4x
+4. YXV, 2x
+5.-6. EY, 1x
+5.-6. XUY, 1x
+Nejprodavanejsi zbozi: prodano 22 kusu
+1. BNPJ, 10x
+2. LCIKV, 5x
+3. ECHFS, 4x
+4. YXV, 2x
+5.-6. EY, 1x
+5.-6. XUY, 1x
+Nejprodavanejsi zbozi: prodano 23 kusu
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 4x
+4. YXV, 2x
+5.-6. EY, 1x
+5.-6. XUY, 1x
+Nejprodavanejsi zbozi: prodano 24 kusu
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. YXV, 2x
+5.-6. EY, 1x
+5.-6. XUY, 1x
+Nejprodavanejsi zbozi: prodano 25 kusu
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4.-5. YXV, 2x
+4.-5. XUY, 2x
+Nejprodavanejsi zbozi: prodano 25 kusu
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4.-5. YXV, 2x
+4.-5. XUY, 2x
+Nejprodavanejsi zbozi: prodano 25 kusu
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4.-5. YXV, 2x
+4.-5. XUY, 2x
+Nejprodavanejsi zbozi: prodano 25 kusu
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 3x
+5. YXV, 2x
+Nejprodavanejsi zbozi: prodano 26 kusu
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 3x
+5. YXV, 2x
+Nejprodavanejsi zbozi: prodano 26 kusu
+1. BNPJ, 10x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 3x
+5.-6. YXV, 2x
+5.-6. J, 2x
+Nejprodavanejsi zbozi: prodano 28 kusu
+1. BNPJ, 11x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 3x
+5.-6. YXV, 2x
+5.-6. J, 2x
+Nejprodavanejsi zbozi: prodano 29 kusu
+1. BNPJ, 11x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 4x
+5.-6. YXV, 2x
+5.-6. J, 2x
+Nejprodavanejsi zbozi: prodano 30 kusu
+1. BNPJ, 11x
+2. LCIKV, 6x
+3. ECHFS, 5x
+4. XUY, 4x
+5. J, 3x
+Nejprodavanejsi zbozi: prodano 29 kusu
+1. BNPJ, 11x
+2. LCIKV, 6x
+3.-4. ECHFS, 5x
+3.-4. XUY, 5x
+5. J, 3x
+Nejprodavanejsi zbozi: prodano 30 kusu
+1. BNPJ, 11x
+2.-3. LCIKV, 6x
+2.-3. XUY, 6x
+4. ECHFS, 5x
+5. J, 3x
+Nejprodavanejsi zbozi: prodano 31 kusu
+1. BNPJ, 11x
+2.-3. LCIKV, 6x
+2.-3. XUY, 6x
+4. ECHFS, 5x
+5.-6. YXV, 3x
+5.-6. J, 3x
+Nejprodavanejsi zbozi: prodano 34 kusu
+1. BNPJ, 12x
+2.-3. LCIKV, 6x
+2.-3. XUY, 6x
+4. ECHFS, 5x
+5.-6. YXV, 3x
+5.-6. J, 3x
+Nejprodavanejsi zbozi: prodano 35 kusu
+1. BNPJ, 12x
+2.-3. LCIKV, 6x
+2.-3. XUY, 6x
+4. ECHFS, 5x
+5. YXV, 4x
+Nejprodavanejsi zbozi: prodano 33 kusu
+1. BNPJ, 12x
+2. LCIKV, 7x
+3. XUY, 6x
+4. ECHFS, 5x
+5. YXV, 4x
+Nejprodavanejsi zbozi: prodano 34 kusu
+1. BNPJ, 12x
+2. LCIKV, 7x
+3. XUY, 6x
+4. ECHFS, 5x
+5.-6. YXV, 4x
+5.-6. J, 4x
+Nejprodavanejsi zbozi: prodano 38 kusu
+1. BNPJ, 12x
+2. LCIKV, 7x
+3.-4. ECHFS, 6x
+3.-4. XUY, 6x
+5.-6. YXV, 4x
+5.-6. J, 4x
+Nejprodavanejsi zbozi: prodano 39 kusu
+1. BNPJ, 12x
+2. LCIKV, 7x
+3.-4. ECHFS, 6x
+3.-4. XUY, 6x
+5. J, 5x
+Nejprodavanejsi zbozi: prodano 36 kusu
+1. BNPJ, 12x
+2. LCIKV, 8x
+3.-4. ECHFS, 6x
+3.-4. XUY, 6x
+5. J, 5x
+Nejprodavanejsi zbozi: prodano 37 kusu
+1. BNPJ, 12x
+2. LCIKV, 8x
+3. XUY, 7x
+4. ECHFS, 6x
+5. J, 5x
+Nejprodavanejsi zbozi: prodano 38 kusu
+1. BNPJ, 12x
+2. LCIKV, 8x
+3.-4. ECHFS, 7x
+3.-4. XUY, 7x
+5. J, 5x
+Nejprodavanejsi zbozi: prodano 39 kusu
+1. BNPJ, 12x
+2. LCIKV, 8x
+3.-4. ECHFS, 7x
+3.-4. XUY, 7x
+5. J, 5x
+Nejprodavanejsi zbozi: prodano 39 kusu
+1. BNPJ, 12x
+2. LCIKV, 8x
+3.-4. ECHFS, 7x
+3.-4. XUY, 7x
+5. J, 5x
+Nejprodavanejsi zbozi: prodano 39 kusu
+1. BNPJ, 12x
+2. LCIKV, 8x
+3.-4. ECHFS, 7x
+3.-4. XUY, 7x
+5.-6. YXV, 5x
+5.-6. J, 5x
+Nejprodavanejsi zbozi: prodano 44 kusu
+1. BNPJ, 12x
+2. LCIKV, 8x
+3.-4. ECHFS, 7x
+3.-4. XUY, 7x
+5.-6. YXV, 5x
+5.-6. J, 5x
+Nejprodavanejsi zbozi: prodano 44 kusu
