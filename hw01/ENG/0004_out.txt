@@ -1,0 +1,4 @@
+Sheet dimensions:
+Sail dimensions:
+Overlap:
+Sheets: 16
